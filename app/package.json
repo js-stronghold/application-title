@@ -1,0 +1,9 @@
+{
+	"jspm": {
+		"directories": {}
+	},
+
+	"scripts": {
+		"test": "mocha tests"
+	}
+}

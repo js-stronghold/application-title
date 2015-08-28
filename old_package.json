@@ -1,8 +1,0 @@
-{
-  "scripts": {
-    "test": "mocha Application/tests"
-  },
-  "devDependencies": {
-    "jspm": "^0.16.2"
-  }
-}
