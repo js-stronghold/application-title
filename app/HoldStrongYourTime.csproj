@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
+    <Content Include="tests\template-for-tests.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
