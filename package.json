@@ -1,5 +1,13 @@
 {
+	"devDependencies": {
+		"jspm": "^0.16.2"
+	},
+
+	"jspm": {
+		"directories": {}
+	},
+
 	"scripts": {
-		"test": "mocha Application/tests"
+		"test": "mocha app/tests"
 	}
 }
