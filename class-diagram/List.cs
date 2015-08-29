@@ -7,5 +7,16 @@ namespace ClassDiagramForCalendarApp
 {
     public class List : Content
     {
+        public int items
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
     }
 }
