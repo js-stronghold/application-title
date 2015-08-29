@@ -56,7 +56,7 @@ describe('Day Module', function() {
 		expect(myDay.contents[0]).to.equal(myNote);
 	});
 
-	it('Day contents property should be readonly', function() {
+	it('Day "contents" property should be readonly', function() {
 		var someDay = new Day(24),
 			myNote = new Note('belejka', 'Sub Zero: xxxacz<+z');
 
@@ -84,7 +84,7 @@ describe('Day Module', function() {
 		expect(someDay.contents.length).to.equal(1);
 	});
 
-	it('Day _contents property should be invisible', function() {
+	it('Day "_contents" property should be invisible', function() {
 		var someDay = new Day(24),
 			myNote = new Note('belejka', 'Sub Zero: xxxacz<+z'),
 			ownKeys,
