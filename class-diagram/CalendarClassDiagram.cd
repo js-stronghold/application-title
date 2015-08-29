@@ -123,23 +123,23 @@
       <Path>
         <Point X="8" Y="0.826" />
         <Point X="8.24" Y="0.826" />
-        <Point X="8.24" Y="2.249" />
-        <Point X="8.5" Y="2.249" />
+        <Point X="8.24" Y="2.366" />
+        <Point X="8.5" Y="2.366" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
       <FileName>Note.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClassDiagramForCalendarApp.Birthday">
-    <Position X="8.5" Y="3" Width="1.5" />
+    <Position X="8.5" Y="3.25" Width="1.5" />
     <InheritanceLine Type="ClassDiagramForCalendarApp.Content" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="8" Y="0.826" />
         <Point X="8.24" Y="0.826" />
-        <Point X="8.24" Y="3.188" />
-        <Point X="8.5" Y="3.188" />
+        <Point X="8.24" Y="3.438" />
+        <Point X="8.5" Y="3.438" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -148,18 +148,33 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ClassDiagramForCalendarApp.Address">
-    <Position X="8.5" Y="4.25" Width="1.5" />
+    <Position X="8.5" Y="4.5" Width="1.5" />
     <InheritanceLine Type="ClassDiagramForCalendarApp.Content" FixedFromPoint="true">
       <Path>
         <Point X="8" Y="0.826" />
         <Point X="8.24" Y="0.826" />
-        <Point X="8.24" Y="4.749" />
-        <Point X="8.5" Y="4.749" />
+        <Point X="8.24" Y="4.999" />
+        <Point X="8.5" Y="4.999" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Address.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassDiagramForCalendarApp.List">
+    <Position X="8.5" Y="5.75" Width="1.5" />
+    <InheritanceLine Type="ClassDiagramForCalendarApp.Content" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8" Y="0.812" />
+        <Point X="8.24" Y="0.812" />
+        <Point X="8.24" Y="6" />
+        <Point X="8.5" Y="6" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>List.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

@@ -47,6 +47,7 @@
     <Compile Include="Date.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="Image.cs" />
+    <Compile Include="List.cs" />
     <Compile Include="Month.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
