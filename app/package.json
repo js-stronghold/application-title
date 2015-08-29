@@ -3,7 +3,7 @@
     "directories": {}
   },
   "scripts": {
-    "test": "mocha tests"
+    "test": "iojs node_modules/mocha/bin/mocha  tests/"
   },
   "name": "strong-hold-your-time",
   "version": "1.0.0",
@@ -13,10 +13,12 @@
     "test": "tests"
   },
   "dependencies": {
+    "chai": "^3.2.0",
+    "jquery": "^2.1.4",
+    "jsdom": "^6.2.0",
     "jspm": "^0.16.2",
     "node-requirejs": "^0.1.1",
-    "requirejs": "^2.1.20",
-    "chai": "^3.2.0"
+    "requirejs": "^2.1.20"
   },
   "devDependencies": {
     "mocha": "^2.2.5"
