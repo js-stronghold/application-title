@@ -42,5 +42,10 @@ namespace ClassDiagramForCalendarApp
             {
             }
         }
+
+        public void toDomElement()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
