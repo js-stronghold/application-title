@@ -39,7 +39,7 @@ describe('Content', function() {
 
 	var Content;
 	before(function(done) {
-		requirejs(['content'], function(content) {
+		requirejs(['content-types/content'], function(content) {
 			Content = content;
 			done();
 		});
