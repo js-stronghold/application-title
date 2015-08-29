@@ -1,29 +1,23 @@
 {
   "jspm": {
     "directories": {},
+    "dependencies": {},
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.22",
       "babel-runtime": "npm:babel-runtime@^5.8.20",
       "core-js": "npm:core-js@^1.1.0"
     }
   },
-
   "scripts": {
     "test": "iojs node_modules/mocha/bin/mocha  tests/"
   },
-
   "name": "strong-hold-your-time",
-
   "version": "1.0.0",
-
   "description": "teamwork project",
-
   "main": "index.js",
-
   "directories": {
     "test": "tests"
   },
-
   "dependencies": {
     "mocha": "^2.2.5",
     "chai": "^3.2.0",
@@ -32,7 +26,6 @@
     "node-requirejs": "^0.1.1",
     "requirejs": "^2.1.20"
   },
-
   "repository": {
     "type": "git",
     "url": "https://github.com/js-stronghold/hold-strong-your-time"
