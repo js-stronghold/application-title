@@ -12,7 +12,8 @@ requirejs.config({
 });
 
 describe('Day Module', function() {
-
+	var Day,
+		Note;
 	before(function(done) {
 		jsdom.env({
 			html: '',
@@ -26,15 +27,10 @@ describe('Day Module', function() {
 					}).forEach(function(prop) {
 						global[prop] = window[prop];
 					});
-				done();
 			}
 		});
-	});
 
-	var Day,
-		Note;
-	before(function(done) {
-		requirejs(['day', 'content-types/note'], function(day, note) {
+		requirejs(['calendar/day', 'content-types/note'], function(day, note) {
 			Day = day;
 			Note = note;
 			done();
@@ -42,59 +38,140 @@ describe('Day Module', function() {
 	});
 
 	it('Creating Day should work', function() {
-		var aDay = new Day(1);
+		var today = new Date();
+		var aDay = new Day(today);
 
-		expect(aDay.number).to.equal(1);
+		expect(aDay.number).to.equal(today.getDate());
 	});
 
-	it('addContent should add content to the contents property', function() {
-		var myDay = new Day(24),
+	describe('Day properties', function() {
+		var myNote,
+			myDay;
+		beforeEach(function() {
 			myNote = new Note('belejka', 'Sub Zero: xxxacz<+z');
+			myDay = new Day(new Date(2015, 10, 24));
+		});
 
-		myDay.addContent(myNote);
+		it('addContent should add content to the contents property', function() {
+			myDay.addContent(myNote);
 
-		expect(myDay.contents[0]).to.equal(myNote);
-	});
+			expect(myDay.contents[0]).to.equal(myNote);
+			expect(myDay.contents[0].title).to.equal('belejka');
+		});
 
-	it('Day "contents" property should be readonly', function() {
-		var someDay = new Day(24),
-			myNote = new Note('belejka', 'Sub Zero: xxxacz<+z');
+		it('addContent chaining should work', function () {
+			myDay.addContent(myNote)
+				.addContent(myNote)
+				.addContent(myNote);
 
-		someDay.addContent(myNote);
-		expect(someDay.contents[0]).to.equal(myNote);
+			expect(myDay.contents.length).to.equal(3);
+		});
 
-		someDay.contents = [];
-		expect(someDay.contents[0]).to.equal(myNote);
+		it('When content is added Day should be highlighted', function() {
+			myDay.addContent(myNote);
 
-		someDay.contents = 0;
-		expect(someDay.contents[0]).to.equal(myNote);
+			expect(myDay.isHighlighted).to.equal(true);
+		});
 
-		someDay.contents = {
-			x: 'y'
-		};
-		expect(someDay.contents[0]).to.equal(myNote);
+		it('removeContent should work', function () {
+			var removedNote;
 
-		someDay.contents = function() {
-			return 24;
-		};
-		expect(someDay.contents[0]).to.equal(myNote);
+			myDay.addContent(myNote)
+				.addContent(myNote)
+				.addContent(myNote);
 
-		someDay.contents.push('aso');
-		someDay.contents.push('pika');
-		expect(someDay.contents.length).to.equal(1);
-	});
+			myDay.removeContent(myNote);
+			expect(myDay.contents.length).to.equal(2);
 
-	it('Day "_contents" property should be invisible', function() {
-		var someDay = new Day(24),
-			myNote = new Note('belejka', 'Sub Zero: xxxacz<+z'),
-			ownKeys,
-			prototypeKeys;
+			removedNote = myDay.removeContent(myNote);
+			expect(myDay.contents.length).to.equal(1);
+			expect(removedNote).to.equal(myNote);
 
-		ownKey = Object.keys(someDay);
-		expect(ownKey).to.not.include('_contents');
+			myDay.removeContent(myNote);
+			expect(myDay.contents.length).to.equal(0);
 
-		prototypeKeys = Object.keys(Object.getPrototypeOf(someDay));
-		expect(prototypeKeys).to.not.include('_contents');
-		expect(prototypeKeys).to.include('contents');
+			removedNote = myDay.removeContent(myNote);
+			expect(myDay.contents.length).to.equal(0);
+			expect(removedNote).to.equal(null);
+		});
+
+		it('When content is removed and there is no content left Day should stop being highlighted', function () {
+			myDay.addContent(myNote)
+				.addContent(myNote)
+				.addContent(myNote);
+
+			expect(myDay.isHighlighted).to.equal(true);
+
+			myDay.removeContent(myNote);
+			expect(myDay.isHighlighted).to.equal(true);
+
+			myDay.removeContent(myNote);
+			expect(myDay.isHighlighted).to.equal(true);
+
+			myDay.removeContent(myNote);
+			expect(myDay.isHighlighted).to.equal(false);
+		});
+
+		it('Day "contents" property should be readonly', function() {
+			myDay.addContent(myNote);
+			expect(myDay.contents[0]).to.equal(myNote);
+
+			myDay.contents = [];
+			expect(myDay.contents[0]).to.equal(myNote);
+
+			myDay.contents = 0;
+			expect(myDay.contents[0]).to.equal(myNote);
+
+			myDay.contents = {
+				x: 'y'
+			};
+			expect(myDay.contents[0]).to.equal(myNote);
+
+			myDay.contents = function() {
+				return 24;
+			};
+			expect(myDay.contents[0]).to.equal(myNote);
+
+			myDay.contents.push('aso');
+			myDay.contents.push('pika');
+			expect(myDay.contents.length).to.equal(1);
+		});
+
+		it('Day "_contents" property should be invisible', function() {
+			var ownKey = Object.keys(myDay),
+				prototypeKeys = Object.keys(Object.getPrototypeOf(myDay));
+
+			expect(ownKey).to.not.include('_contents');
+
+			expect(prototypeKeys).to.not.include('_contents');
+			expect(prototypeKeys).to.include('contents');
+		});
+
+		describe('toDomElement()', function () {
+			it('should return a dom element', function () {
+				var element = myDay.toDomElement();
+
+				expect(element).to.have.property('html');
+			});
+
+			it('should be of class day', function () {
+				var element = myDay.toDomElement();
+
+				expect($(element).hasClass('day')).to.equal(true);
+			});
+
+			it('should warp it\'s contents.toDomElement()', function () {
+				var dayHTML,
+					noteHTML = myNote.toDomElement().html();
+
+				myDay.addContent(myNote)
+					.addContent(myNote);
+
+				dayHTML = myDay.toDomElement().html();	
+
+				expect(dayHTML).to.include(noteHTML);
+				expect(dayHTML).to.include(noteHTML + '</div><div class="content">' + noteHTML);
+			});
+		});
 	});
 });
