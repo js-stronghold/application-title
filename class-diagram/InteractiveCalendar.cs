@@ -5,9 +5,9 @@ using System.Text;
 
 namespace ClassDiagramForCalendarApp
 {
-    public class TodayView
+    public abstract class InteractiveCalendar
     {
-        public Date Date
+        public int StoredEvents
         {
             get
             {
@@ -19,7 +19,7 @@ namespace ClassDiagramForCalendarApp
             }
         }
 
-        public Calendar Calendar
+        public int CurrentDate
         {
             get
             {
@@ -31,39 +31,17 @@ namespace ClassDiagramForCalendarApp
             }
         }
 
-        public RemoveEvent RemoveEvent
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
-
-        public InputEventForm InputEventForm
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
-
-        public void ViewContent()
+        public abstract void display()
         {
             throw new System.NotImplementedException();
         }
-    }
 
-    public class DailyView : InteractiveCalendar
-    {
-        public void getEventsForThisDay()
+        public void getNext()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void getPrev()
         {
             throw new System.NotImplementedException();
         }

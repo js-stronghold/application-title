@@ -48,16 +48,21 @@
     <Compile Include="Event.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="InputForm.cs" />
+    <Compile Include="InteractiveCalendar.cs" />
     <Compile Include="List.cs" />
     <Compile Include="Month.cs" />
+    <Compile Include="MonthView.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoveButton.cs" />
     <Compile Include="Week.cs" />
+    <Compile Include="WeekView.cs" />
     <Compile Include="Year.cs" />
+    <Compile Include="YearView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CalendarClassDiagram.cd" />
+    <None Include="CalendarInteraction.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
