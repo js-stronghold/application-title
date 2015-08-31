@@ -2,10 +2,12 @@ define(['calendar/database',
 	'calendar/day',
 	'content-types/note',
 	'content-types/list',
-	'calendar/calendar'
-], function(db, day, note, list) {
+	'calendar/calendar',
+	'extensions/date'
+], function(db, day, note, list, cal, ext) {
 	$('#calendar-container').calendar();
 
+	// ########### for testing ###########
 	DB = db;
 	Day = day;
 	Note = note;
@@ -49,9 +51,14 @@ define(['calendar/database',
 		}
 	})();
 
-	testDays.forEach(DB.addDay);
+	try{
+		testDays.forEach(DB.addDay);
+	} catch (e) {
+		console.log(e.message);
+	}
 
-	// after you are done clear localStorage from the 
-	// browser console (localStorage.clear())
-	// or you will get errors 
+	console.log('September 2015 \n', DB.getDaysForThisMonth(new Date(2015, 8)));
+
+	// you can clear DB with DB.clear() this will also clear localStorage 
+	// ####################################
 });
