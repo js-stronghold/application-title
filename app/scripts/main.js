@@ -1,3 +1,3 @@
-define(['some-module'], function(someMod) {
-	someMod.doStuff();
+define(['calendar/calendar'], function() {
+	$('#main-container').calendar();
 });

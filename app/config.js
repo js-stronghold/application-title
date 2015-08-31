@@ -10,6 +10,7 @@ System.config({
   },
   paths: {
     "jquery": "libs/jquery-2.1.4",
+    "underscore": "libs/underscore.js",
     "github:*": "jspm_packages/github/*",
     "npm:*": "jspm_packages/npm/*"
   },
