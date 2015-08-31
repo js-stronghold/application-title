@@ -1,7 +1,13 @@
 define(['content-types/content', 'jquery'], function(Content, $) {
-	function Note(title, message, time, color) {
-		Content.call(this, title, time, color);
-		this.message = message;
+function Note(title, message, time, color) {
+	var TYPE = 'note';
+		Content.call(this,
+			title.title || title,
+			TYPE,
+			title.time || time,
+			title.color || color);
+
+		this.message = title.message || message;
 	}
 
 	Note.prototype = Object.create(Content.prototype, {
@@ -19,12 +25,12 @@ define(['content-types/content', 'jquery'], function(Content, $) {
 	function toDomElement() {
 		var noteText = $('<p />')
 			.addClass('note')
-			.html(this.message);	
+			.html(this.message);
 
 		var wrapper = Content.prototype.toDomElement.call(this)
 			.append(noteText);
 
-		return wrapper;	
+		return wrapper;
 	}
 
 	return Note;

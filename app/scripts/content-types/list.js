@@ -1,8 +1,20 @@
 define(['content-types/content', 'jquery'], function(Content, $) {
-	function List(title, list, time, color) {
-		Content.call(this, title, time, color);
-		// list should be an array;
-		this.items = list;
+function List(titleOrParams, list, time, color) {
+	var TYPE = 'list';
+		if (typeof(titleOrParams) === 'object') {
+			Content.call(
+				this, 
+				titleOrParams.title, 
+				TYPE, 
+				titleOrParams.time, 
+				titleOrParams.color);
+
+			this.items = titleOrParams.list;		
+		} else {
+			Content.call(this, titleOrParams, TYPE, time, color);
+			// list should be an array;
+			this.items = list;
+		}
 	}
 
 	List.prototype = Object.create(Content.prototype, {

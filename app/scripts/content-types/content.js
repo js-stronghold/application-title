@@ -1,6 +1,7 @@
 define(['jquery'], function($) {
-	function Content(title, time, color) {
+	function Content(title, type, time, color) {
 		this.title = title;
+		this.type = type || null;
 		this.time = time || null;
 		this.color = color || null;
 	}
