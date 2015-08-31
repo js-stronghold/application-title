@@ -84,9 +84,9 @@ describe('Database', function() {
 						dayNote,
 						dayList;
 
-					for (year = 2013; year < 2015; year += 1) {
-						for (month = 6; month < 11; month += 1) {
-							for (day = 1; day < 30; day += 3) {
+					for (year = 2013; year <= 2015; year += 1) {
+						for (month = 0; month <= 11; month += 1) {
+							for (day = 1; day < 30; day += 6) {
 
 								selectedDate = new Date(year, month, day);
 								currentDay = new Day(selectedDate);
@@ -115,7 +115,7 @@ describe('Database', function() {
 		);
 	});
 
-	it('addDay() should add one day to database', function() {
+	it('addDay() should add one day to DB', function() {
 		expect(DB.getAll().length).to.equal(0);
 
 		DB.addDay(testDays[0]);
@@ -123,29 +123,107 @@ describe('Database', function() {
 		expect(DB.getAll()).to.include(testDays[0]);
 	});
 
+	it('DB to work with a lot of days', function () {
+		testDays.forEach(DB.addDay);
+		expect(DB.getAll().length).to.be.above(150);
+	});
+
+	it('removeDay() to remove a day by given date', function () {
+		var theDate = new Date(2013, 0, 1),
+			allDaysBefore = DB.getAll(),
+			expectedToBeRemoved = allDaysBefore[0],
+			actualRemoved = DB.removeDay(theDate),
+			allDaysAfter = DB.getAll();
+
+		expect(allDaysAfter.length).to.equal(allDaysBefore.length - 1);
+		expect(expectedToBeRemoved).to.eql(actualRemoved);
+		expect(allDaysAfter).to.not.include(expectedToBeRemoved);
+	});
+
+	it('removeDay() to remove a day by reference', function () {
+		var theRemoved = testDays[100],
+			allDaysBefore = DB.getAll(),
+			actualRemoved = DB.removeDay(theRemoved),
+			allDaysAfter = DB.getAll();
+
+		expect(allDaysAfter.length).to.equal(allDaysBefore.length - 1);
+		expect(theRemoved).to.eql(actualRemoved);
+		expect(allDaysAfter).to.not.include(theRemoved);
+	});
+
 	it('clear() should remove all content from DB', function() {
-		expect(DB.getAll().length).to.equal(1);
+		testDays.forEach(DB.addDay);
+		expect(DB.getAll().length).to.be.above(10);
 
 		DB.clear();
 		expect(DB.getAll().length).to.equal(0);
 	});
 
-	it('getDaysForThisMonth', function() {
-		// body...
+	describe('getDays functions', function() {
+		before(function() {
+			testDays.forEach(DB.addDay);
+		});
+
+		after(function() {
+			DB.clear();
+		});
+
+		it('getDaysForThisMonth() should return only the days for the given month', function() {
+			var theMonth = new Date(2015, 7),
+				days = DB.getDaysForThisMonth(theMonth);
+
+			expect(days.length).to.equal(5);
+			days.forEach(function(day) {
+				expect(day.date.getMonth()).to.equal(7);
+			});
+		});
+
+		it('getDaysForThisMonth() should return emptyArray if there isn\'t content for the given month', function() {
+			var theMonth = new Date(2225, 7),
+				days = DB.getDaysForThisMonth(theMonth);
+
+			expect(days.length).to.equal(0);
+		});
+
+		it('getDaysForNextMonth() should return results for next year january when called for the last month of the year', function() {
+			var theMonth = new Date(2014, 11),
+				days = DB.getDaysForNextMonth(theMonth);
+
+			expect(days.length).to.equal(5);
+			days.forEach(function(day) {
+				expect(day.date.getMonth()).to.equal(0);
+				expect(day.date.getFullYear()).to.equal(2015);
+			});
+		});
+
+		it('getDaysForPrevMonth() should return results for previous year december when called for the first month of the year', function() {
+			var theMonth = new Date(2014, 0),
+				days = DB.getDaysForPrevMonth(theMonth);
+
+			expect(days.length).to.equal(5);
+			days.forEach(function(day) {
+				expect(day.date.getMonth()).to.equal(11);
+				expect(day.date.getFullYear()).to.equal(2013);
+			});
+		});
 	});
 
-	// $('#main-container').calendar();
-	// DB = db;
-	// Day = day;
-	// Note = note;
-	// Content = content;
+	describe('localStorage', function () {
+		afterEach(function() {
+			DB.clear();
+		});
 
-	// obj = {
-	// 	title: 'belejka',
-	// 	message: 'imash 6'
-	// };
+		it('expect item "daysWithEvents" to exist in localStorage when there are days in DB', function () {
+			var days = testDays.slice(10,20);
+			days.forEach(DB.addDay);
 
-	// nota = new Note(obj);
-	// misho = new Day(new Date());
-	// misho.addContent(nota);
+			expect(localStorage.getItem('daysWithEvents')).to.not.equal(undefined);
+		});
+
+		it('adding days to DB to also add those days to localStorage', function () {
+			var days = testDays.slice(10,20);
+
+			days.forEach(DB.addDay);
+		});
+	});
 });

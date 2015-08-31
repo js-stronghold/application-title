@@ -71,12 +71,9 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 
 	function getDaysForThisMonth(monthDate) {
 		var days = _(daysWithEvents).filter(function(day) {
-			return day.date.getMonth() === monthDate.getMonth();
+			return day.date.getMonth() === monthDate.getMonth() &&
+				day.date.getFullYear() === monthDate.getFullYear();
 		});
-
-		if (days.length === 0) {
-			return null;
-		}
 
 		return days;
 	}
@@ -86,7 +83,7 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 			year,
 			prevMonth;
 
-		if (monthDate.getMonth === 0) {
+		if (monthDate.getMonth() === 0) {
 			month = 11;
 			year = monthDate.getFullYear() - 1;
 		} else {
@@ -104,15 +101,15 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 			year,
 			nextMonth;
 
-		if (monthDate.getMonth === 11) {
+		if (monthDate.getMonth() === 11) {
 			month = 0;
 			year = monthDate.getFullYear() + 1;
 		} else {
-			month = monthDate.getMonth + 1;
+			month = monthDate.getMonth() + 1;
 			year = monthDate.getFullYear();
 		}
 
-		nextMonth = new Date(year, month, 1);
+		nextMonth = new Date(year, month);
 
 		return getDaysForThisMonth(nextMonth);
 	}
@@ -152,9 +149,9 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 	}
 
 	function removeDayByDate(date) {
-		var dayDate = new Date(date.getFullYear(), date.getMonth(), date.getDay()),
-			index = _(daysWithEvents).findIndex({
-				date: dayDate
+		var dayDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()),
+			index = _(daysWithEvents).findIndex(function(day) {
+				return dayDate.toDateString() === day.date.toDateString();
 			}),
 			removedDay;
 
@@ -164,7 +161,7 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 			removedDay = daysWithEvents[index];
 			daysWithEvents.splice(index, 1);
 
-			return removeDay;
+			return removedDay;
 		}
 	}
 
@@ -176,9 +173,9 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 			return null;
 		} else {
 			removedDay = daysWithEvents[index];
-			daysWithEvents.splcie(index, 1);
+			daysWithEvents.splice(index, 1);
 
-			return removeDay;
+			return removedDay;
 		}
 	}
 
@@ -189,6 +186,8 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 		getAll: getAll,
 		addDay: addDay,
 		removeDay: removeDay,
-		clear: clear
+		clear: clear,
+		// exposed for testing
+		reloadFromLocal: parseLocalStorageContent
 	};
 });
