@@ -1,22 +1,12 @@
-define('calendar', ['jquery','underscore','calendar/database'],
+define('calendar', ['jquery','underscore','calendar/database', 'extensions/date'],
 	function($, _, database) {
 		 $.fn.calendar = function () {
-        var MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         var WEEK_DAY_NAMES = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-
-        Date.prototype.getMonthName = function () {
-            return MONTH_NAMES[this.getMonth()];
-        };
-
-        Date.prototype.getDayName = function () {
-            return WEEK_DAY_NAMES[this.getDay()];
-        };
 
         var $this = this;
         var currentDate = new Date();
-        var wrapper = $('<div />');
+        var wrapper = $this.parent();
         var picker = $this.addClass('datepicker').wrap(wrapper);
-        wrapper = $this.parent();
 
         var controls = $('<div />').addClass('controls').appendTo(picker);
 
@@ -26,12 +16,13 @@ define('calendar', ['jquery','underscore','calendar/database'],
 
         var calendar = buildCalendar().appendTo(picker);
 
+        highlightDaysWithContent(currentDate);
 
         function buildCalendar(date) {
             var CALENDAR_ROWS = 6;
-            date = date || new Date();
-            var year = year || date.getFullYear();
-            var month = month || date.getMonth();
+            date = date || new Date(); // this is correct
+            var year = year || date.getFullYear(); // ?? this will always be date.getFullYear() because it starts with "var year"
+            var month = month || date.getMonth(); // ?? same
             var calendar = $('<table />').addClass('calendar');
             var headerRow = $('<tr />').appendTo(calendar);
             for (var i = 0, len = WEEK_DAY_NAMES.length; i < len; i++) {
@@ -47,7 +38,7 @@ define('calendar', ['jquery','underscore','calendar/database'],
             var startNext = 0;
             var currentDayRendered = 1;
 
-            for (var i = 0; i < CALENDAR_ROWS; i++) {
+            for (var i = 0; i < CALENDAR_ROWS; i += 1) {
                 var row = $('<tr />').appendTo(calendar);
                 // previous month numbers
                 if (!previousMonthRendered) {
@@ -59,15 +50,15 @@ define('calendar', ['jquery','underscore','calendar/database'],
                         startIndex -= 7;
                     }
 
-                    for (var j = startIndex, len = previousMonthLastDay; j <= len; j++) {
+                    for (var j = startIndex, len = previousMonthLastDay; j <= len; j += 1) {
                         $('<td />').addClass('another-month').text(j).appendTo(row);
-                        startNext++;
+                        startNext += 1;
                     }
                     previousMonthRendered = true;
                 }
 
                 // current month numbers
-                for (var j = startNext; j < 7; j++) {
+                for (var j = startNext; j < 7; j += 1) {
                     var cell = $('<td />').text(currentDayRendered).appendTo(row);
                     if (!inNextMonth) {
                         cell.addClass('current-month');
@@ -77,19 +68,18 @@ define('calendar', ['jquery','underscore','calendar/database'],
                         cell.addClass('another-month');
                     }
 
-                    currentDayRendered++;
+                    currentDayRendered += 1;
                     if (currentDayRendered > lastDayOfMonth) {
                         currentDayRendered = 1;
                         inNextMonth = true;
                     }
 
-                    startNext++;
+                    startNext += 1;
                 }
 
                 startNext = 0;
             }
 
-        	highlightContentedDays(date);
             return calendar;
         }
 
@@ -97,6 +87,7 @@ define('calendar', ['jquery','underscore','calendar/database'],
             var operation = parseInt($(this).data('operation'));
             var date = new Date(currentDate.setMonth(currentDate.getMonth() + operation));
             buildCalendar(date).replaceAll('.calendar');
+            highlightDaysWithContent(date);
             setInnerMonth(date);
         });
 
@@ -106,15 +97,13 @@ define('calendar', ['jquery','underscore','calendar/database'],
             
         });
 
-        function highlightContentedDays(date){
+        function highlightDaysWithContent(date){
         	var days = database.getDaysForThisMonth(date);
-        	var currentMonthDays = $('td.current-month');
-        	_(days).each(function(day) {
-        		var index = currentMonthDays.indexOf(day);
-        		if(index != -1){
-        			currentMonthDays[index].addClass('contented');
-        		}
-        	});
+        	var currentMonthDays = $(calendar).find('.current-month');
+            _(days).each(function(day) {
+                var i = day.number - 1;
+                $(currentMonthDays[i]).addClass('highlighted');
+            });
         }
 
         function setInnerMonth(date) {

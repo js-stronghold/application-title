@@ -19,7 +19,7 @@
 .another-month{
     color: gray;
 }
-.calendar td .current-month .contented{
-    color: green;
+.calendar td.highlighted{
+    color: orange;
 
 }
