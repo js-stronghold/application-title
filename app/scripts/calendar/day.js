@@ -1,13 +1,27 @@
 define(['content-types/note', 'content-types/list', 'jquery', 'extensions/date'], function(Note, List, $) {
 
 	function Day(date) {
-		this.number = date.getDate();
-		this.name = date.getDayName();
+		this.date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
 		Object.defineProperties(this, {
+			number: {
+				get: function() {
+					return this.date.getDate();
+				},
+				enumerable: true
+			},
+
+			name: {
+				get: function() {
+					return this.date.getDayName();
+				},
+				enumerable: true
+			},
+
 			_contents: {
 				value: []
 			},
+
 			_isHighlighted: {
 				value: false,
 				writable: true
@@ -16,6 +30,17 @@ define(['content-types/note', 'content-types/list', 'jquery', 'extensions/date']
 	}
 
 	Object.defineProperties(Day.prototype, {
+		date: {
+			get: function() {
+				return this._date;
+			},
+			set: function(val) {
+				// Validate
+				this._date = val;
+			},
+			enumerable: true
+		},
+
 		contents: {
 			get: function() {
 				return this._contents.slice();
@@ -66,7 +91,7 @@ define(['content-types/note', 'content-types/list', 'jquery', 'extensions/date']
 			}
 
 			return content;
-			
+
 		} else {
 			return null;
 		}
@@ -99,9 +124,7 @@ define(['content-types/note', 'content-types/list', 'jquery', 'extensions/date']
 		if (numberToString.length === 2) {
 			digit = numberToString.substr(1, 1);
 			return number + getNumberEnding(+digit);
-		}
-
-		else {
+		} else {
 			throw new Error('Only 2 digit numbers accepted');
 		}
 	}
