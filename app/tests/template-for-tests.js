@@ -31,9 +31,10 @@ describe('Template', function() {
 		});
 	});
 
+	// Load your module here
 	// var yourModule;
 	// before(function(done) {
-	// 	requirejs(['scripts/content'], function(module) {
+	// 	requirejs(['content'], function(module) {
 	// 		yourModule = module;
 	// 		done();
 	// 	});
