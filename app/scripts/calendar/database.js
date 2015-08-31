@@ -1,10 +1,82 @@
-define(['underscore'], function(_) {
-	daysWithEvents = [];
+define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'], function(Day, Note, List, _) {
+	var daysWithEvents = [],
+		daysToInit;
+
+	if (localStorage.getItem('daysWithEvents')) {
+		parseLocalStorageContent();
+	}
+
+	function parseLocalStorageContent() {
+		var daysToInit = JSON.parse(localStorage.getItem('daysWithEvents'));
+		_(daysToInit).each(function(item) {
+			var dayDate = new Date(
+				item.date[0], 
+				item.date[1],
+				item.date[2]),
+				day = new Day(dayDate);
+
+			_(item.contents).each(function(content) {
+				var convertedToContent;
+
+				switch (content.type) {
+					case 'note':
+						convertedToContent = new Note(content);
+						break;
+					case 'list':
+						convertedToContent = new List(content);
+						break;
+					default:
+						throw new Error('parseToLocalStorage received unknown content type ' + content.type);
+				}
+
+				day.addContent(convertedToContent);
+				addDay(day);
+			});
+		});
+	}
+
+	function prepareForLocalStorage(day) {
+		var objectForStringify = {
+			date: [
+				day.date.getFullYear(),
+				day.date.getMonth(),
+				day.date.getDate()
+			],
+			contents: []
+		};
+
+		_(day.contents).each(function(content) {
+			objectForStringify.contents.push(content);
+		});
+
+		return JSON.stringify(objectForStringify);
+	}
+
+	function appendToLocalStorage(day) {
+		var prepared,
+			currentLocalStorageContent = localStorage.getItem('daysWithEvents'),
+			regExLastArrayBracket = /\]$/,
+			preString = ',';
+
+		if (!currentLocalStorageContent) {
+			localStorage.setItem('daysWithEvents', '[]');
+			currentLocalStorageContent = '[]';
+			preString = '';
+		}
+
+		prepared = currentLocalStorageContent.replace(regExLastArrayBracket, preString + prepareForLocalStorage(day) + ']');
+
+		localStorage.setItem('daysWithEvents', prepared);
+	}
 
 	function getDaysForThisMonth(monthDate) {
 		var days = _(daysWithEvents).filter(function(day) {
 			return day.date.getMonth() === monthDate.getMonth();
 		});
+
+		if (days.length === 0) {
+			return null;
+		}
 
 		return days;
 	}
@@ -45,30 +117,45 @@ define(['underscore'], function(_) {
 		return getDaysForThisMonth(nextMonth);
 	}
 
+	function getAll() {
+		return daysWithEvents.slice();
+	}
+
 	function addDay(day) {
 		if (!day.date || typeof(day.toDomElement) !== 'function') {
 			throw new Error('addDay received invalid parameters, probably not a valid Day instance');
 		}
 
-		if (_(daysWithEvents).findIndex({date: day.date})) {
-			throw new Error('The database already contain a Day with the same date');
+		if (_(daysWithEvents).findIndex({
+				date: day.date
+			}) !== -1) {
+			return null;
 		}
 
 		daysWithEvents.push(day);
+		appendToLocalStorage(day);
 	}
 
-	function removeDay(byDateOrbyReference) {
-		if (byDateOrbyReference instanceof Date) {
-			return removeDayByDate(byDateOrbyReference);
-		} else if (byDateOrbyReference.date instanceof Date) {
-			return removeDayByReference(byDateOrbyReference);
+	function removeDay(byDateOrReference) {
+		if (byDateOrReference instanceof Date) {
+			return removeDayByDate(byDateOrReference);
+		} else if (byDateOrReference.date instanceof Date) {
+			return removeDayByReference(byDateOrReference);
 		} else {
 			throw new Error('removeDay received invalid arguments');
 		}
 	}
 
-	function removeDayByDate(date){
-		var index = _(daysWithEvents).findIndex({date: date}),
+	function clear() {
+		daysWithEvents = [];
+		localStorage.removeItem('daysWithEvents');
+	}
+
+	function removeDayByDate(date) {
+		var dayDate = new Date(date.getFullYear(), date.getMonth(), date.getDay()),
+			index = _(daysWithEvents).findIndex({
+				date: dayDate
+			}),
 			removedDay;
 
 		if (index === -1) {
@@ -99,7 +186,9 @@ define(['underscore'], function(_) {
 		getDaysForThisMonth: getDaysForThisMonth,
 		getDaysForPrevMonth: getDaysForPrevMonth,
 		getDaysForNextMonth: getDaysForNextMonth,
+		getAll: getAll,
 		addDay: addDay,
-		removeDay: removeDay
+		removeDay: removeDay,
+		clear: clear
 	};
 });
