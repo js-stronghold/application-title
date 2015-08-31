@@ -121,14 +121,19 @@ describe('Database', function() {
 		DB.addDay(testDays[0]);
 		expect(DB.getAll().length).to.equal(1);
 		expect(DB.getAll()).to.include(testDays[0]);
+		DB.clear();
 	});
 
-	it('DB to work with a lot of days', function () {
+	it('addDay() should throw when there is other day with the same date in DB', function () {
+		// body...
+	});
+
+	it('DB to work with a lot of days', function() {
 		testDays.forEach(DB.addDay);
 		expect(DB.getAll().length).to.be.above(150);
 	});
 
-	it('removeDay() to remove a day by given date', function () {
+	it('removeDay() to remove a day by given date', function() {
 		var theDate = new Date(2013, 0, 1),
 			allDaysBefore = DB.getAll(),
 			expectedToBeRemoved = allDaysBefore[0],
@@ -140,7 +145,7 @@ describe('Database', function() {
 		expect(allDaysAfter).to.not.include(expectedToBeRemoved);
 	});
 
-	it('removeDay() to remove a day by reference', function () {
+	it('removeDay() to remove a day by reference', function() {
 		var theRemoved = testDays[100],
 			allDaysBefore = DB.getAll(),
 			actualRemoved = DB.removeDay(theRemoved),
@@ -152,7 +157,6 @@ describe('Database', function() {
 	});
 
 	it('clear() should remove all content from DB', function() {
-		testDays.forEach(DB.addDay);
 		expect(DB.getAll().length).to.be.above(10);
 
 		DB.clear();
@@ -208,22 +212,36 @@ describe('Database', function() {
 		});
 	});
 
-	describe('localStorage', function () {
+	describe('localStorage', function() {
 		afterEach(function() {
 			DB.clear();
 		});
 
-		it('expect item "daysWithEvents" to exist in localStorage when there are days in DB', function () {
-			var days = testDays.slice(10,20);
+		it('expect item "daysWithEvents" to exist in localStorage when there are days in DB', function() {
+			var days = testDays.slice(10, 20);
 			days.forEach(DB.addDay);
 
 			expect(localStorage.getItem('daysWithEvents')).to.not.equal(undefined);
 		});
 
-		it('adding days to DB to also add those days to localStorage', function () {
-			var days = testDays.slice(10,20);
+		it('restoring days from localStorage should create the correct days', function() {
+			var days = testDays.slice(10, 20),
+				daysFromLS;
 
 			days.forEach(DB.addDay);
+
+			DB.clearWithoutLS();
+			expect(DB.getAll().length).to.equal(0);
+
+			DB.reloadFromLS();
+			daysFromLS = DB.getAll();
+			expect(daysFromLS.length).to.equal(10);
+
+			expect(_.isEqual(days, daysFromLS)).to.be.true;
+		});
+
+		it('expect DB.removeDay() to also remove the day from LS', function () {
+			// implement
 		});
 	});
 });

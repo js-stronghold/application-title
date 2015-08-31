@@ -1,8 +1,9 @@
-define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'], function(Day, Note, List, _) {
+define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore', 'extensions/date'], function(Day, Note, List, _) {
 	var daysWithEvents = [],
 		daysToInit;
 
 	if (localStorage.getItem('daysWithEvents')) {
+
 		parseLocalStorageContent();
 	}
 
@@ -10,28 +11,33 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 		var daysToInit = JSON.parse(localStorage.getItem('daysWithEvents'));
 		_(daysToInit).each(function(item) {
 			var dayDate = new Date(
-				item.date[0], 
+				item.date[0],
 				item.date[1],
-				item.date[2]),
+				item.date[2]);
+			var day;
+
+			if (indexOfDayFromDate(dayDate) === -1) {
 				day = new Day(dayDate);
 
-			_(item.contents).each(function(content) {
-				var convertedToContent;
+				_(item.contents).each(function(content) {
+					var convertedToContent;
 
-				switch (content.type) {
-					case 'note':
-						convertedToContent = new Note(content);
-						break;
-					case 'list':
-						convertedToContent = new List(content);
-						break;
-					default:
-						throw new Error('parseToLocalStorage received unknown content type ' + content.type);
-				}
+					switch (content.type) {
+						case 'note':
+							convertedToContent = new Note(content);
+							break;
+						case 'list':
+							convertedToContent = new List(content);
+							break;
+						default:
+							throw new Error('parseToLocalStorage received unknown content type ' + content.type);
+					}
 
-				day.addContent(convertedToContent);
-				addDay(day);
-			});
+					day.addContent(convertedToContent);
+				});
+
+				daysWithEvents.push(day);
+			}
 		});
 	}
 
@@ -123,10 +129,8 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 			throw new Error('addDay received invalid parameters, probably not a valid Day instance');
 		}
 
-		if (_(daysWithEvents).findIndex({
-				date: day.date
-			}) !== -1) {
-			return null;
+		if (indexOfDayFromDate(day.date) !== -1) {
+			throw new Error('The database already contains information for tihs day');
 		}
 
 		daysWithEvents.push(day);
@@ -150,9 +154,7 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 
 	function removeDayByDate(date) {
 		var dayDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()),
-			index = _(daysWithEvents).findIndex(function(day) {
-				return dayDate.toDateString() === day.date.toDateString();
-			}),
+			index = indexOfDayFromDate(date),
 			removedDay;
 
 		if (index === -1) {
@@ -163,6 +165,12 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 
 			return removedDay;
 		}
+	}
+
+	function indexOfDayFromDate(date) {
+		return _(daysWithEvents).findIndex(function(day) {
+			return date.toShortString() === day.date.toShortString();
+		});
 	}
 
 	function removeDayByReference(day) {
@@ -179,6 +187,11 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 		}
 	}
 
+	// for testing purpose
+	function clearWithoutLS() {
+		daysWithEvents = [];
+	}
+
 	return {
 		getDaysForThisMonth: getDaysForThisMonth,
 		getDaysForPrevMonth: getDaysForPrevMonth,
@@ -188,6 +201,7 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 		removeDay: removeDay,
 		clear: clear,
 		// exposed for testing
-		reloadFromLocal: parseLocalStorageContent
+		reloadFromLS: parseLocalStorageContent,
+		clearWithoutLS: clearWithoutLS
 	};
 });

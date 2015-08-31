@@ -41,13 +41,26 @@ define(function() {
 			configurable: true
 		},
 
-		formatShort: {
-			value: function(separator, trueToDisplayMonthAsWord) {
-				var day = this.getDate(),
-					month = monthName ? this.getMonthName() : this.getMonth() + 1,
-					year = this.getFullYear();
+		toShortString: {
+			value: function(separator) {
+				var replacements = {
+						dayName: this.getDayName().substr(0, 3),
+						dayNumber: this.getDate() > 10 ? this.getDate() : '0' + this.getDate(),
+						month: this.getMonthName().substr(0, 3),
+						year: this.getFullYear(),
+					},
+					strFormat = '#{dayName} #{month} #{dayNumber} #{year}',
+					formatted;
 
-				return day + separator + month + separator + year;
+				formatted = strFormat.replace(/#{(\S+)}/g, function(match, prop) {
+					return replacements[prop] || match;
+				});
+
+				if (separator) {
+					formatted = formatted.replace(/[\s]/g, separator);
+				}
+
+				return formatted;
 			},
 			enumerable: true,
 			configurable: true
