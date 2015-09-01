@@ -1,3 +1,8 @@
+#calendar-container {
+    border: 2px solid #000;
+    width: 220px;
+}
+
 .controls {
     border: 2px solid purple;
     background-color: lightblue;
@@ -19,7 +24,7 @@
 .another-month{
     color: gray;
 }
-.calendar td.highlighted{
+.calendar-month td.highlighted{
     color: orange;
 
 }
