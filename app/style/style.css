@@ -1,0 +1,16 @@
+#calendar-container {
+    border: 2px solid #000;
+    width: 450px;
+}
+
+.controls {
+    border: 2px solid purple;
+    background-color: lightblue;
+    width: 14.3%;
+    padding: 0.2%;
+}
+
+.controls .btn, .controls .current-month{
+    display: inline-block;
+    margin: 0.3%;
+}

@@ -1,0 +1,46 @@
+.calendar-month {
+	border-collapse: collapse;
+	border: 2px solid #000;
+	margin: 5px auto;
+	width: 95%;
+
+	td, th{
+	    border: 1px solid #333;
+	    padding: 5px;
+	    text-align: center;
+	    width: 50px;
+	    height: 50px;
+	    background: rgb(219, 226, 228);
+	}
+
+	.selected-month {
+	    font-weight: bold;
+	    font-size: 24px;
+	}
+
+	.another-month {
+		color: rgb(211, 211, 211);
+	}
+
+	.weekend {
+		background: rgba(79, 87, 152, 0.46);
+	}
+
+	.weekday-names {
+		color: rgb(107, 107, 107);
+		background: rgb(109, 241, 124);
+
+		th {
+			background: transparent;
+		}
+
+		.weekend {
+			background: rgba(101, 110, 183, 0.75);
+		}
+	}
+
+	.highlighted{
+		color: rgb(26, 249, 35);
+		background: rgb(96, 111, 110);
+	}
+}

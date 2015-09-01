@@ -1,0 +1,39 @@
+.calendar-month {
+  border-collapse: collapse;
+  border: 2px solid #000;
+  margin: 5px auto;
+  width: 95%;
+}
+.calendar-month td,
+.calendar-month th {
+  border: 1px solid #333;
+  padding: 5px;
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  background: #dbe2e4;
+}
+.calendar-month .selected-month {
+  font-weight: bold;
+  font-size: 24px;
+}
+.calendar-month .another-month {
+  color: #d3d3d3;
+}
+.calendar-month .weekend {
+  background: rgba(79, 87, 152, 0.46);
+}
+.calendar-month .weekday-names {
+  color: #6b6b6b;
+  background: #6df17c;
+}
+.calendar-month .weekday-names th {
+  background: transparent;
+}
+.calendar-month .weekday-names .weekend {
+  background: rgba(101, 110, 183, 0.75);
+}
+.calendar-month .highlighted {
+  color: #1af923;
+  background: #606f6e;
+}
