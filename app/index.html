@@ -20,6 +20,31 @@
     <div id="calendar-container">
 
     </div>
+    <script id="calendar-template" type="text/x-handlebars-template">
+        <table class="calendar-month">
+            <caption class="selected-month">{{month}}</caption>
+            <thead>
+                <tr class="weekday-names">
+                    {{#each headers}}
+                    <th>
+                    {{this}}
+                    </th>
+                    {{/each}}
+                </tr>
+            </thead>
+            <tbody>
+                {{#each calendarRows}}
+                <tr>
+                    {{#each this}}
+                    <td {{#if class}}class="{{class}}"{{/if}}>
+                        {{date}}
+                    </td>
+                    {{/each}}
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </script>
 
     <footer>
         @StrongHold
