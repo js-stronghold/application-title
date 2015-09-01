@@ -1,8 +1,6 @@
 define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', 'extensions/date'],
 	function($, _, Handlebars, database) {
 		$.fn.calendar = function() {
-			var WEEK_DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
 			var $this = this;
 			var currentDate = new Date();
 			var daysFromDB = [];
@@ -13,15 +11,26 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 			var calendar = buildCalendar();
 
 			highlightDaysWithContent();
-            var result = template(calendar);
+			var result = template(calendar);
 
-            console.log(daysFromCurrentMonth);
-            
+			console.log(daysFromCurrentMonth);
+
 			$this.append(result);
 
 			function buildCalendar(date) {
-				var CALENDAR_ROWS = 6;
 				date = date || new Date();
+
+				var CALENDAR_ROWS = 5;
+				var WEEK_DAYS = [
+					{name: 'Mon'},
+					{name: 'Tue'},
+					{name: 'Wed'},
+					{name: 'Thu'},
+					{name: 'Fri'},
+					{name: 'Sat', class: 'weekend'},
+					{name: 'Sun',class: 'weekend'}
+				];
+
 				var year = date.getFullYear();
 				var month = date.getMonth();
 				var rows = [];
@@ -36,14 +45,15 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 				var currentDayRendered = 1;
 
 				daysFromDB = database.getDaysForThisMonth(date);
-                daysFromCurrentMonth = ['reserved'];
+				daysFromCurrentMonth = ['reserved'];
 
 				(function() {
 					var i,
 						j,
 						len,
 						row,
-						current;
+                        dayDate,
+						currentData;
 
 					for (i = 0; i < CALENDAR_ROWS; i += 1) {
 						row = [];
@@ -53,46 +63,58 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 							var previousMonthDays = firstDayOfMonthWeekDay;
 							var previousFirstDayOfMonth = new Date(year, month - 1, 1);
 							var previousMonthLastDay = new Date(previousFirstDayOfMonth.setMonth(month) - 1).getDate();
-							var startIndex = previousMonthLastDay - previousMonthDays + 1;
+							var startIndex = previousMonthLastDay - previousMonthDays + 2;
 							if (startIndex > previousMonthLastDay) {
 								startIndex -= 7;
 							}
 
+                            dayDate = new Date(year, month - 1, startIndex);
+
 							for (j = startIndex, len = previousMonthLastDay; j <= len; j += 1) {
-								current = {
-									date: '',
+								currentData = {
+									date: j,
 									class: 'another-month'
 								};
-								row.push(current);
+
+                                if (dayDate.getDay() === 6 || dayDate.getDay() === 0) {
+                                    currentData.class += ' weekend';
+                                }
+
+								row.push(currentData);
 								startNext += 1;
+
+                                dayDate.setDate(dayDate.getDate() + 1);
 							}
 							previousMonthRendered = true;
 						}
 
 						// current month numbers
-						for (j = startNext; j < 7; j += 1) {
+						for (j = startNext, len = WEEK_DAYS.length; j < len; j += 1) {
+							currentData = {
+								date: currentDayRendered,
+								class: 'current-month'
+							};
 							if (!inNextMonth) {
-								current = {
-									date: currentDayRendered,
-									class: 'current-month'
-								};
-								row.push(current);
-								daysFromCurrentMonth.push(current);
+								daysFromCurrentMonth.push(currentData);
 							} else {
 								// next month numbers
-								current = {
-									date: '',
-									class: 'another-month'
-								};
-								row.push(current);
+								currentData.class = 'another-month';
 							}
 
+                            if (dayDate.getDay() === 6 || dayDate.getDay() === 0) {
+                                currentData.class += ' weekend';
+                            }
+
+                            row.push(currentData);
+
 							currentDayRendered += 1;
+
 							if (currentDayRendered > lastDayOfMonth) {
 								currentDayRendered = 1;
 								inNextMonth = true;
 							}
 
+                            dayDate.setDate(dayDate.getDate() + 1);
 							startNext += 1;
 						}
 						rows.push(row);
@@ -102,7 +124,7 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 
 				return {
 					month: date.getMonthName(),
-					headers: WEEK_DAY_NAMES,
+					headers: WEEK_DAYS,
 					calendarRows: rows
 				};
 			}
@@ -127,10 +149,10 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 				_(days).each(function(day) {
 					var i = day.number;
 					currentMonthDays[i].class += ' highlighted';
-                    currentMonthDays[i].contents = day;
+					currentMonthDays[i].contents = day;
 				});
 
-                return currentMonthDays;
+				return currentMonthDays;
 			}
 
 			function setInnerMonth(date) {

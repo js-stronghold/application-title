@@ -26,8 +26,8 @@
             <thead>
                 <tr class="weekday-names">
                     {{#each headers}}
-                    <th>
-                    {{this}}
+                    <th {{#if this.class}}class="{{class}}"{{/if}}>
+                    {{this.name}}
                     </th>
                     {{/each}}
                 </tr>

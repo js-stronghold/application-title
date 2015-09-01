@@ -1,6 +1,6 @@
 #calendar-container {
     border: 2px solid #000;
-    width: 220px;
+    width: 450px;
 }
 
 .controls {
@@ -15,16 +15,50 @@
     margin: 0.3%;
 }
 
-.calendar{
-    border: 2px solid purple;
-    background-color: lightblue;
-    width: 15%;
+.calendar-month {
+    border-collapse: collapse;
+    border: 2px solid #000;
+    margin: 5px auto;
+    width: 95%;
 }
 
-.another-month{
-    color: gray;
+.calendar-month .selected-month {
+    font-weight: bold;
+    font-size: 24px;
 }
+
+.calendar-month td, .calendar-month th{
+    border: 1px solid #000;
+    padding: 5px;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    background: rgb(219, 226, 228);
+}
+
+.calendar-month .weekday-names {
+    color: rgb(107, 107, 107);
+    background: rgb(109, 241, 124);
+}
+
+.calendar-month .weekday-names th {
+    background: transparent;
+}
+
+.calendar-month .weekday-names .weekend {
+    background: rgba(101, 110, 183, 0.75);
+}
+
+.calendar-month .weekend {
+    background: rgba(79, 87, 152, 0.46);
+}
+
+.calendar-month .another-month {
+    color: #D3D3D3;
+}
+
 .calendar-month td.highlighted{
-    color: orange;
+    color: rgb(26, 249, 35);
+    background: rgb(96, 111, 110);
 
 }
