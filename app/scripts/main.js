@@ -11,9 +11,9 @@ define(['calendar/database',
 	DB = db;
 	Day = day;
 	Note = note;
-	//List = list;
+	List = list;
 
-	//testDays = [];
+	testDays = [];
 
 	(function() {
 		var day,

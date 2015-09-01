@@ -1,4 +1,4 @@
-define('calendar', ['libs/jquery','libs/underscore','libs/handlebars''calendar/database', 'extensions/date'],
+define('calendar', ['jquery','underscore', 'handlebars', 'calendar/database', 'extensions/date'],
 	function($, _, Handlebars, database) {
 		 $.fn.calendar = function () {
         var WEEK_DAY_NAMES = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
@@ -12,6 +12,8 @@ define('calendar', ['libs/jquery','libs/underscore','libs/handlebars''calendar/d
         var result = template(calendar);
 
         highlightDaysWithContent(currentDate);
+
+        $this.append(result);
 
         function buildCalendar(date) {
             var CALENDAR_ROWS = 6;
@@ -72,26 +74,26 @@ define('calendar', ['libs/jquery','libs/underscore','libs/handlebars''calendar/d
 
 
             return {
-                month: month;
-                headers: WEEK_DAY_NAMES;
-                calendarRows: rows;
+                month: date.getMonthName(),
+                headers: WEEK_DAY_NAMES,
+                calendarRows: rows
 
             };
         }
 
-        controls.on('click', 'button', function () {
-            var operation = parseInt($(this).data('operation'));
-            var date = new Date(currentDate.setMonth(currentDate.getMonth() + operation));
-            buildCalendar(date);
-            highlightDaysWithContent(date);
-            setInnerMonth(date);
-        });
+        // controls.on('click', 'button', function () {
+        //     var operation = parseInt($(this).data('operation'));
+        //     var date = new Date(currentDate.setMonth(currentDate.getMonth() + operation));
+        //     buildCalendar(date);
+        //     highlightDaysWithContent(date);
+        //     setInnerMonth(date);
+        // });
 
-        calendar.on('click', 'td.current-month', function () {
-            var $this = $(this);
-            //TODO :DailyView
+        // calendar.on('click', 'td.current-month', function () {
+        //     var $this = $(this);
+        //     //TODO :DailyView
             
-        });
+        // });
 
         function highlightDaysWithContent(date){
         	var days = database.getDaysForThisMonth(date);
@@ -111,5 +113,5 @@ define('calendar', ['libs/jquery','libs/underscore','libs/handlebars''calendar/d
         }
 
         // append control to DOM
-    }
+    };
 });
