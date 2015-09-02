@@ -7,6 +7,35 @@
   border: 3px solid #000;
   width: 100%;
 }
+#calendar-container .calendar-month td,
+#calendar-container .calendar-month th {
+  border: 1px solid #333;
+  padding: 5px;
+  text-align: center;
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  background: #dbe2e4;
+  cursor: default;
+}
+#calendar-container .calendar-month td {
+  transition: all 0.5s ease;
+}
+#calendar-container .calendar-month td:hover {
+  cursor: pointer;
+  background-color: #a0e3ff;
+  color: #fff;
+}
+#calendar-container .calendar-month .weekend {
+  background: rgba(79, 87, 152, 0.46);
+}
+#calendar-container .calendar-month .another-month {
+  color: #d3d3d3;
+}
+#calendar-container .calendar-month .highlighted {
+  color: #1af923;
+  background: #606f6e;
+}
 #calendar-container .controls {
   position: relative;
   border: 3px solid #000;
@@ -56,31 +85,6 @@
   font-size: 24px;
   padding: 2% 0;
 }
-#calendar-container td,
-#calendar-container th {
-  border: 1px solid #333;
-  padding: 5px;
-  text-align: center;
-  vertical-align: middle;
-  width: 50px;
-  height: 50px;
-  background: #dbe2e4;
-  cursor: default;
-}
-#calendar-container td {
-  transition: all 0.5s ease;
-}
-#calendar-container td:hover {
-  cursor: pointer;
-  background-color: #a0e3ff;
-  color: #fff;
-}
-#calendar-container .another-month {
-  color: #d3d3d3;
-}
-#calendar-container .weekend {
-  background: rgba(79, 87, 152, 0.46);
-}
 #calendar-container .weekday-names {
   color: #6b6b6b;
   background: #6df17c;
@@ -92,7 +96,10 @@
 #calendar-container .weekday-names .weekend {
   background: rgba(101, 110, 183, 0.75);
 }
-#calendar-container .highlighted {
-  color: #1af923;
-  background: #606f6e;
+#calendar-container .popup {
+  border: 1px solid #000;
+  box-shadow: 1px 1px 2px #000;
+  border-radius: 5px 10px;
+  padding: 5px;
+  background: #eee;
 }

@@ -1,7 +1,7 @@
 define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', 'extensions/date'],
 	function($, _, Handlebars, database) {
 		$.fn.calendar = function() {
-			var $this = this;
+			var $selected = this;
 			var currentDate = new Date();
 			var daysFromDB = [];
 			var daysFromCurrentMonth = [];
@@ -34,9 +34,12 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 
 			console.log(daysFromCurrentMonth);
 
-			$this
+			$selected
                 .append(controls)
                 .append(calendar);
+
+            var popup = $('<div />')
+                .addClass('popup');
 
 			function buildCalendar(date) {
 				date = date || new Date();
@@ -154,15 +157,28 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 			    var date = new Date(currentDate.setMonth(currentDate.getMonth() + operation));
 			    var result = buildCalendar(date);
 			    highlightDaysWithContent(date);
-                calendar.html(template(result));
+                calendar.html(template(result   ));
 			    setInnerMonth(date);
 			});
 
-            calendar.on('mouseover', 'td.current-month', function() {
+            calendar.on('mouseover', 'td.current-month', function(evt) {
                 var $this = $(this),
                     monthDays = daysFromCurrentMonth,
-                    dayObject = monthDays[$this.text()];
-                    console.log(dayObject);
+                    dayObject = monthDays[+$this.text()];
+                    if (dayObject.contents) {
+                        popup
+                            .appendTo($selected)
+                            .html(dayObject.contents.contents.length + ' items')
+                            .css({
+                                position: 'fixed',
+                                left: evt.pageX,
+                                top: evt.pageY,
+                            });
+                    } 
+            });
+
+            calendar.on('mouseleave', 'td.current-month', function() {
+                popup.remove();
             });
 
 			// calendar.on('click', 'td.current-month', function () {

@@ -6,6 +6,40 @@
 		border-collapse: collapse;
 		border: 3px solid #000;
 		width: 100%;
+
+		td, th {
+			border: 1px solid #333;
+			padding: 5px;
+			text-align: center;
+			vertical-align: middle;
+			width: 50px;
+			height: 50px;
+			background: rgb(219, 226, 228);
+			cursor: default;
+		}
+
+		td { 
+			transition: all 0.5s ease;
+
+			&:hover {
+				cursor: pointer;
+				background-color: rgb(160, 227, 255);
+				color: #fff;
+			}
+		}
+
+		.weekend {
+			background: rgba(79, 87, 152, 0.46);
+		}
+
+		.another-month {
+			color: rgb(211, 211, 211);
+		}
+
+		.highlighted {
+			color: rgb(26, 249, 35);
+			background: rgb(96, 111, 110);
+		}
 	}
 
 	.controls {
@@ -67,35 +101,6 @@
 		padding: 2% 0;
 	}
 
-	td, th{
-		border: 1px solid #333;
-		padding: 5px;
-		text-align: center;
-		vertical-align: middle;
-		width: 50px;
-		height: 50px;
-		background: rgb(219, 226, 228);
-		cursor: default;
-	}
-
-	td { 
-		transition: all 0.5s ease;
-
-		&:hover {
-			cursor: pointer;
-			background-color: rgb(160, 227, 255);
-			color: #fff;
-		}
-	}	
-
-	.another-month {
-		color: rgb(211, 211, 211);
-	}
-
-	.weekend {
-		background: rgba(79, 87, 152, 0.46);
-	}
-
 	.weekday-names {
 		color: rgb(107, 107, 107);
 		background: rgb(109, 241, 124);
@@ -110,8 +115,11 @@
 		}
 	}
 
-	.highlighted{
-		color: rgb(26, 249, 35);
-		background: rgb(96, 111, 110);
+	.popup {
+		border: 1px solid #000;
+		box-shadow: 1px 1px 2px #000;
+		border-radius: 5px 10px;
+		padding: 5px;
+		background: #eee;
 	}
 }
