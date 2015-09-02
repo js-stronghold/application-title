@@ -1,5 +1,5 @@
-define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', 'extensions/date'],
-	function($, _, Handlebars, database) {
+define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', 'interface/day-view', 'extensions/date'],
+	function($, _, Handlebars, database, dayView) {
 		$.fn.calendar = function() {
 			var $selected = this;
 			var currentDate = new Date();
@@ -181,11 +181,19 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
                 popup.remove();
             });
 
-			// calendar.on('click', 'td.current-month', function () {
-			//     var $this = $(this);
-			//     //TODO :DailyView
+            calendar.on('click', 'td.current-month', function(evt) {
+                var $this = $(this),
+                    monthDays = daysFromCurrentMonth,
+                    dayObject = monthDays[+$this.text()];
 
-			// });
+                if (dayObject.contents && !dayObject.contents.isDisplayed) {
+                    dayView.init(dayObject.contents, $selected, evt.pageX, evt.pageY);
+                }
+
+                if (!dayObject.contents) {
+                    console.log('Do you want to add content?');
+                }
+            });
 
 			function highlightDaysWithContent() {
 				var days = daysFromDB;
