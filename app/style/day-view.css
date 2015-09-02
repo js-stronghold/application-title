@@ -1,0 +1,39 @@
+#calendar-container .day-view {
+  border: 2px solid #000;
+  border-radius: 5px 10px;
+  box-shadow: 2px 2px 4px #000;
+  background: #555;
+  color: #fff;
+  padding: 5px;
+}
+#calendar-container .day-view .close-button {
+  position: absolute;
+  top: 2px;
+  right: -2px;
+  color: #fff;
+  background: none;
+  border: 0;
+  transition: all 0.35s ease;
+}
+#calendar-container .day-view .close-button:hover {
+  cursor: pointer;
+  color: #FF8600;
+}
+#calendar-container .day-view .day .date {
+  margin-top: 10px;
+  text-align: center;
+}
+#calendar-container .day-view .day .content .type {
+  text-align: center;
+  text-decoration: underline;
+  margin: 10px 5px 5px;
+}
+#calendar-container .day-view .day .content .description {
+  font-style: italic;
+}
+#calendar-container .day-view .day .content .list {
+  padding: 0 20px;
+}
+#calendar-container .day-view .day .content .list li {
+  list-style-type: square;
+}
