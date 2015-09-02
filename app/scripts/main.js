@@ -5,8 +5,6 @@ define(['calendar/database',
 	'calendar/calendar',
 	'extensions/date'
 ], function(db, day, note, list, cal, ext) {
-	$('#calendar-container').calendar();
-
 	// ########### for testing ###########
 	DB = db;
 	Day = day;
@@ -58,6 +56,8 @@ define(['calendar/database',
 	}
 
 	console.log('September 2015 \n', DB.getDaysForThisMonth(new Date(2015, 8)));
+
+	$('#calendar-container').calendar();
 
 	// you can clear DB with DB.clear() this will also clear localStorage 
 	// ####################################
