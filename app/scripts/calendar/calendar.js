@@ -13,9 +13,29 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 			highlightDaysWithContent();
 			var result = template(calendar);
 
+            var leftBtn = $('<button />')
+                .data('action', '-1')
+                .html('&lt;');
+
+            var rightBtn = $('<button />')   
+                .data('action', '1')
+                .html('&gt;');
+
+            var selectedMonth = $('<span />')
+                .addClass('selected-month')
+                .html(currentDate.getMonthName());
+
+            var controls = $('<div />')
+                .addClass('controls')
+                .append(leftBtn)
+                .append(selectedMonth)
+                .append(rightBtn);
+
 			console.log(daysFromCurrentMonth);
 
-			$this.append(result);
+			$this
+                .append(controls)
+                .append(result);
 
 			function buildCalendar(date) {
 				date = date || new Date();
@@ -123,7 +143,6 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 				})();
 
 				return {
-					month: date.getMonthName(),
 					headers: WEEK_DAYS,
 					calendarRows: rows
 				};

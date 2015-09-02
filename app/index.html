@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Good App</title>
+    <link rel="stylesheet" href="style/style-reset.css">
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/calendar-style.css">
     <script src="jspm_packages/system.js" type="text/javascript" charset="utf-8"></script>
@@ -23,7 +24,6 @@
     </div>
     <script id="calendar-template" type="text/x-handlebars-template">
         <table class="calendar-month">
-            <caption class="selected-month">{{month}}</caption>
             <thead>
                 <tr class="weekday-names">
                     {{#each headers}}

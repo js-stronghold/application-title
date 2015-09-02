@@ -1,11 +1,52 @@
-.calendar-month {
+#calendar-container {
+  border: 2px solid #000;
+  width: 450px;
+}
+#calendar-container .calendar-month {
   border-collapse: collapse;
   border: 2px solid #000;
-  margin: 5px auto;
+  margin: 0 auto 5px;
   width: 95%;
 }
-.calendar-month td,
-.calendar-month th {
+#calendar-container .controls {
+  border: 2px solid purple;
+  background-color: #dbe2e4;
+  width: 94%;
+  margin: -2px auto;
+  text-align: center;
+}
+#calendar-container .controls button {
+  color: transparent;
+  width: 9%;
+  height: 9%;
+  border: none;
+  border-radius: 20px;
+  line-height: 2.7;
+  vertical-align: super;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  box-shadow: 1px 1px 4px #131312;
+}
+#calendar-container .controls button:active {
+  width: 8.5%;
+  height: 8.5%;
+  box-shadow: 1px 1px 2px #131312;
+}
+#calendar-container .controls button:first-child {
+  background-image: url(../images/arrow-left.png);
+}
+#calendar-container .controls button:last-child {
+  background-image: url(../images/arrow-right.png);
+}
+#calendar-container .selected-month {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 24px;
+  padding: 2% 23%;
+}
+#calendar-container td,
+#calendar-container th {
   border: 1px solid #333;
   padding: 5px;
   text-align: center;
@@ -13,27 +54,23 @@
   height: 50px;
   background: #dbe2e4;
 }
-.calendar-month .selected-month {
-  font-weight: bold;
-  font-size: 24px;
-}
-.calendar-month .another-month {
+#calendar-container .another-month {
   color: #d3d3d3;
 }
-.calendar-month .weekend {
+#calendar-container .weekend {
   background: rgba(79, 87, 152, 0.46);
 }
-.calendar-month .weekday-names {
+#calendar-container .weekday-names {
   color: #6b6b6b;
   background: #6df17c;
 }
-.calendar-month .weekday-names th {
+#calendar-container .weekday-names th {
   background: transparent;
 }
-.calendar-month .weekday-names .weekend {
+#calendar-container .weekday-names .weekend {
   background: rgba(101, 110, 183, 0.75);
 }
-.calendar-month .highlighted {
+#calendar-container .highlighted {
   color: #1af923;
   background: #606f6e;
 }

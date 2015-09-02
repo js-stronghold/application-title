@@ -1,8 +1,56 @@
-.calendar-month {
-	border-collapse: collapse;
+#calendar-container {
 	border: 2px solid #000;
-	margin: 5px auto;
-	width: 95%;
+	width: 450px;
+
+	.calendar-month {
+		border-collapse: collapse;
+		border: 2px solid #000;
+		margin: 0 auto 5px;
+		width: 95%;
+	}
+
+	.controls {
+		border: 2px solid purple;
+		background-color: rgb(219, 226, 228);
+		width: 94%;
+		margin: -2px auto;
+		text-align: center;
+
+		button {
+			color: transparent;
+			width: 9%;
+			height: 9%;
+			border: none;
+			border-radius: 20px;
+			line-height: 2.7;
+			vertical-align: super;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: 100%;
+			box-shadow: 1px 1px 4px rgb(19, 19, 18);		
+		}
+
+		button:active {
+			width: 8.5%;
+			height: 8.5%;
+			box-shadow: 1px 1px 2px rgb(19, 19, 18);
+		}
+
+		button:first-child {
+			background-image: url(../images/arrow-left.png);
+		}
+
+		button:last-child {
+			background-image: url(../images/arrow-right.png);
+		}
+	}
+
+	.selected-month {
+		display: inline-block;
+		font-weight: bold;
+		font-size: 24px;
+		padding: 2% 23%;
+	}
 
 	td, th{
 	    border: 1px solid #333;
@@ -11,11 +59,6 @@
 	    width: 50px;
 	    height: 50px;
 	    background: rgb(219, 226, 228);
-	}
-
-	.selected-month {
-	    font-weight: bold;
-	    font-size: 24px;
 	}
 
 	.another-month {
