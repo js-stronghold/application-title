@@ -8,10 +8,10 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 
 			var sorce = $('#calendar-template').html();
 			var template = Handlebars.compile(sorce);
-			var calendar = buildCalendar();
+			var result = buildCalendar();
 
 			highlightDaysWithContent();
-			var result = $(template(calendar));
+			var calendar = $(template(result));
 
             var leftBtn = $('<button />')
                 .data('action', '-1')
@@ -36,7 +36,7 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 
 			$this
                 .append(controls)
-                .append(result);
+                .append(calendar);
 
 			function buildCalendar(date) {
 				date = date || new Date();
@@ -152,11 +152,18 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 			controls.on('click', 'button', function () {
 			    var operation = parseInt($(this).data('action'));
 			    var date = new Date(currentDate.setMonth(currentDate.getMonth() + operation));
-			    calendar = buildCalendar(date);
+			    var result = buildCalendar(date);
 			    highlightDaysWithContent(date);
-                result.html(template(calendar));
+                calendar.html(template(result));
 			    setInnerMonth(date);
 			});
+
+            calendar.on('mouseover', 'td.current-month', function() {
+                var $this = $(this),
+                    monthDays = daysFromCurrentMonth,
+                    dayObject = monthDays[$this.text()];
+                    console.log(dayObject);
+            });
 
 			// calendar.on('click', 'td.current-month', function () {
 			//     var $this = $(this);
