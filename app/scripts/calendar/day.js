@@ -25,6 +25,11 @@ define(['content-types/note', 'content-types/list', 'jquery', 'extensions/date']
 			_isHighlighted: {
 				value: false,
 				writable: true
+			},
+
+			_isDisplayed: {
+				value: false,
+				writable: true
 			}
 		});
 	}
@@ -51,6 +56,17 @@ define(['content-types/note', 'content-types/list', 'jquery', 'extensions/date']
 		isHighlighted: {
 			get: function() {
 				return this._isHighlighted;
+			},
+			enumerable: true
+		},
+
+		isDisplayed: {
+			get: function() {
+				return this._isDisplayed;
+			},
+
+			set: function(val) {
+				this._isDisplayed = val;
 			},
 			enumerable: true
 		},
@@ -99,6 +115,7 @@ define(['content-types/note', 'content-types/list', 'jquery', 'extensions/date']
 
 	function toDomElement() {
 		var title = $('<h2 />')
+			.addClass('date')
 			.html(this.name + ' ' + parseDayNumber(this.number));
 
 		var wrapper = $('<div />')
@@ -106,8 +123,7 @@ define(['content-types/note', 'content-types/list', 'jquery', 'extensions/date']
 			.append(title);
 
 		this.contents.forEach(function(content) {
-			var element = content.toDomElement();
-			element.appendTo(wrapper);
+			wrapper.append(content.toDomElement());
 		});
 
 		return wrapper;
@@ -119,6 +135,10 @@ define(['content-types/note', 'content-types/list', 'jquery', 'extensions/date']
 
 		if (numberToString.length === 1) {
 			return number + getNumberEnding(number);
+		}
+
+		if (number === 11 || number === 12 || number === 13) {
+			return number + 'th';
 		}
 
 		if (numberToString.length === 2) {
