@@ -11,7 +11,7 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 			var calendar = buildCalendar();
 
 			highlightDaysWithContent();
-			var result = template(calendar);
+			var result = $(template(calendar));
 
             var leftBtn = $('<button />')
                 .data('action', '-1')
@@ -22,9 +22,10 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
                 .html('&gt;');
 
             var selectedMonth = $('<span />')
-                .addClass('selected-month')
-                .html(currentDate.getMonthName());
-
+                .addClass('selected-month');
+                
+            setInnerMonth(currentDate);
+                
             var controls = $('<div />')
                 .addClass('controls')
                 .append(leftBtn)
@@ -40,7 +41,7 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 			function buildCalendar(date) {
 				date = date || new Date();
 
-				var CALENDAR_ROWS = 5;
+				var CALENDAR_ROWS = 6;
 				var WEEK_DAYS = [
 					{name: 'Mon'},
 					{name: 'Tue'},
@@ -148,13 +149,14 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 				};
 			}
 
-			// controls.on('click', 'button', function () {
-			//     var operation = parseInt($(this).data('operation'));
-			//     var date = new Date(currentDate.setMonth(currentDate.getMonth() + operation));
-			//     buildCalendar(date);
-			//     highlightDaysWithContent(date);
-			//     setInnerMonth(date);
-			// });
+			controls.on('click', 'button', function () {
+			    var operation = parseInt($(this).data('action'));
+			    var date = new Date(currentDate.setMonth(currentDate.getMonth() + operation));
+			    calendar = buildCalendar(date);
+			    highlightDaysWithContent(date);
+                result.html(template(calendar));
+			    setInnerMonth(date);
+			});
 
 			// calendar.on('click', 'td.current-month', function () {
 			//     var $this = $(this);
@@ -175,7 +177,7 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 			}
 
 			function setInnerMonth(date) {
-				innerMonth.text(date.getMonthName() + ' ' + date.getFullYear());
+				selectedMonth.text(date.getMonthName() + ' ' + date.getFullYear());
 			}
 
 			function setValue(date) {
