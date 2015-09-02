@@ -1,5 +1,5 @@
 #calendar-container {
-	width: 450px;
+	width: 480px;
 	box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.66);
 
 	.calendar-month {
@@ -9,6 +9,7 @@
 	}
 
 	.controls {
+		position: relative;
 		border: 3px solid #000;
 		border-bottom: 2px solid #000;
 		background-color: rgb(219, 226, 228);
@@ -16,31 +17,45 @@
 		text-align: center;
 
 		button {
+			position: absolute;
+			top: 3px;
+			cursor: pointer;
 			color: transparent;
 			width: 9%;
 			border: 1px outset #000;
 			border-radius: 25%;
 			line-height: 250%;
-			margin: 10px 0;
 			background-color: #fff;
 			background-position: center;
 			background-repeat: no-repeat;
 			background-size: 110%;
-			box-shadow: 1px 1px 4px #131312;	
-		}
+			box-shadow: 1px 1px 4px #131312;
+			transition: background-color 0.5s ease;	
+		
 
-		button:active {
-			width: 8.5%;
-			height: 8.5%;
-			box-shadow: 1px 1px 2px rgb(19, 19, 18);
+			&:active {
+				width: 8.5%;
+				box-shadow: 1px 1px 2px rgb(19, 19, 18);
+			}
+
+			&:focus {
+				outline: none;
+				background-color: rgb(26, 249, 56);
+			}
+
+			&:hover {
+				background-color: rgb(26, 249, 56);
+			}
 		}
 
 		button:first-child {
+			left: 10px;
 			background-image: url(../images/arrow-left.png);
 
 		}
 
 		button:last-child {
+			right: 10px;
 			background-image: url(../images/arrow-right.png);
 		}
 	}
@@ -49,7 +64,7 @@
 		display: inline-block;
 		font-weight: bold;
 		font-size: 24px;
-		padding: 2% 23%;
+		padding: 2% 0;
 	}
 
 	td, th{
@@ -63,10 +78,15 @@
 		cursor: default;
 	}
 
-	td:hover {
+	td { 
+		transition: all 0.5s ease;
+
+		&:hover {
 			cursor: pointer;
-			background-color: rgb(160, 227, 255)
+			background-color: rgb(160, 227, 255);
+			color: #fff;
 		}
+	}	
 
 	.another-month {
 		color: rgb(211, 211, 211);

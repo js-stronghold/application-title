@@ -1,5 +1,5 @@
 #calendar-container {
-  width: 450px;
+  width: 480px;
   box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.66);
 }
 #calendar-container .calendar-month {
@@ -8,6 +8,7 @@
   width: 100%;
 }
 #calendar-container .controls {
+  position: relative;
   border: 3px solid #000;
   border-bottom: 2px solid #000;
   background-color: #dbe2e4;
@@ -15,34 +16,45 @@
   text-align: center;
 }
 #calendar-container .controls button {
+  position: absolute;
+  top: 3px;
+  cursor: pointer;
   color: transparent;
   width: 9%;
   border: 1px outset #000;
   border-radius: 25%;
   line-height: 250%;
-  margin: 10px 0;
   background-color: #fff;
   background-position: center;
   background-repeat: no-repeat;
   background-size: 110%;
   box-shadow: 1px 1px 4px #131312;
+  transition: background-color 0.5s ease;
 }
 #calendar-container .controls button:active {
   width: 8.5%;
-  height: 8.5%;
   box-shadow: 1px 1px 2px #131312;
 }
+#calendar-container .controls button:focus {
+  outline: none;
+  background-color: #1af938;
+}
+#calendar-container .controls button:hover {
+  background-color: #1af938;
+}
 #calendar-container .controls button:first-child {
+  left: 10px;
   background-image: url(../images/arrow-left.png);
 }
 #calendar-container .controls button:last-child {
+  right: 10px;
   background-image: url(../images/arrow-right.png);
 }
 #calendar-container .selected-month {
   display: inline-block;
   font-weight: bold;
   font-size: 24px;
-  padding: 2% 23%;
+  padding: 2% 0;
 }
 #calendar-container td,
 #calendar-container th {
@@ -55,9 +67,13 @@
   background: #dbe2e4;
   cursor: default;
 }
+#calendar-container td {
+  transition: all 0.5s ease;
+}
 #calendar-container td:hover {
   cursor: pointer;
   background-color: #a0e3ff;
+  color: #fff;
 }
 #calendar-container .another-month {
   color: #d3d3d3;
