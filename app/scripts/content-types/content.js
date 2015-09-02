@@ -14,11 +14,22 @@ define(['jquery'], function($) {
 	});
 
 	function toDomElement() {
+		var type = $('<h3 />')
+			.addClass('type')
+			.text(this.type);
+
 		var title = $('<h3 />')
-			.html(this.title);
+			.addClass('title')
+			.text(this.title);
+			
+		var description = $('<span />')
+			.addClass('description')
+			.text('title: ')
+			.prependTo(title);
 
 		var wrapper = $('<div />')
 			.addClass('content')
+			.append(type)
 			.append(title);
 
 		return wrapper;

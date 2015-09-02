@@ -1,5 +1,5 @@
 define(['content-types/content', 'jquery'], function(Content, $) {
-function List(titleOrParams, list, time, color) {
+function List(titleOrParams, items, time, color) {
 	var TYPE = 'list';
 		if (typeof(titleOrParams) === 'object') {
 			Content.call(
@@ -9,11 +9,11 @@ function List(titleOrParams, list, time, color) {
 				titleOrParams.time, 
 				titleOrParams.color);
 
-			this.items = titleOrParams.list;		
+			this.items = titleOrParams.items;		
 		} else {
 			Content.call(this, titleOrParams, TYPE, time, color);
 			// list should be an array;
-			this.items = list;
+			this.items = items;
 		}
 	}
 

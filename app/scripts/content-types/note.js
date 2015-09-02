@@ -23,9 +23,14 @@ function Note(title, message, time, color) {
 	});
 
 	function toDomElement() {
+		var description = $('<span />')
+			.addClass('description')
+			.text('note: ');
+
 		var noteText = $('<p />')
 			.addClass('note')
-			.html(this.message);
+			.append(description)
+			.append(this.message);	
 
 		var wrapper = Content.prototype.toDomElement.call(this)
 			.append(noteText);
