@@ -1,33 +1,32 @@
 #calendar-container {
-	border: 2px solid #000;
 	width: 450px;
+	box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.66);
 
 	.calendar-month {
 		border-collapse: collapse;
-		border: 2px solid #000;
-		margin: 0 auto 5px;
-		width: 95%;
+		border: 3px solid #000;
+		width: 100%;
 	}
 
 	.controls {
-		border: 2px solid purple;
+		border: 3px solid #000;
+		border-bottom: 2px solid #000;
 		background-color: rgb(219, 226, 228);
-		width: 94%;
-		margin: -2px auto;
+		margin: 0 auto;
 		text-align: center;
 
 		button {
 			color: transparent;
 			width: 9%;
-			height: 9%;
-			border: none;
-			border-radius: 20px;
-			line-height: 2.7;
-			vertical-align: super;
+			border: 1px outset #000;
+			border-radius: 25%;
+			line-height: 250%;
+			margin: 10px 0;
+			background-color: #fff;
 			background-position: center;
 			background-repeat: no-repeat;
-			background-size: 100%;
-			box-shadow: 1px 1px 4px rgb(19, 19, 18);		
+			background-size: 110%;
+			box-shadow: 1px 1px 4px #131312;	
 		}
 
 		button:active {
@@ -38,6 +37,7 @@
 
 		button:first-child {
 			background-image: url(../images/arrow-left.png);
+
 		}
 
 		button:last-child {
@@ -53,13 +53,20 @@
 	}
 
 	td, th{
-	    border: 1px solid #333;
-	    padding: 5px;
-	    text-align: center;
-	    width: 50px;
-	    height: 50px;
-	    background: rgb(219, 226, 228);
+		border: 1px solid #333;
+		padding: 5px;
+		text-align: center;
+		vertical-align: middle;
+		width: 50px;
+		height: 50px;
+		background: rgb(219, 226, 228);
+		cursor: default;
 	}
+
+	td:hover {
+			cursor: pointer;
+			background-color: rgb(160, 227, 255)
+		}
 
 	.another-month {
 		color: rgb(211, 211, 211);
@@ -72,6 +79,7 @@
 	.weekday-names {
 		color: rgb(107, 107, 107);
 		background: rgb(109, 241, 124);
+		border-bottom: 4px solid #000;
 
 		th {
 			background: transparent;

@@ -1,31 +1,30 @@
 #calendar-container {
-  border: 2px solid #000;
   width: 450px;
+  box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.66);
 }
 #calendar-container .calendar-month {
   border-collapse: collapse;
-  border: 2px solid #000;
-  margin: 0 auto 5px;
-  width: 95%;
+  border: 3px solid #000;
+  width: 100%;
 }
 #calendar-container .controls {
-  border: 2px solid purple;
+  border: 3px solid #000;
+  border-bottom: 2px solid #000;
   background-color: #dbe2e4;
-  width: 94%;
-  margin: -2px auto;
+  margin: 0 auto;
   text-align: center;
 }
 #calendar-container .controls button {
   color: transparent;
   width: 9%;
-  height: 9%;
-  border: none;
-  border-radius: 20px;
-  line-height: 2.7;
-  vertical-align: super;
+  border: 1px outset #000;
+  border-radius: 25%;
+  line-height: 250%;
+  margin: 10px 0;
+  background-color: #fff;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: 110%;
   box-shadow: 1px 1px 4px #131312;
 }
 #calendar-container .controls button:active {
@@ -50,9 +49,15 @@
   border: 1px solid #333;
   padding: 5px;
   text-align: center;
+  vertical-align: middle;
   width: 50px;
   height: 50px;
   background: #dbe2e4;
+  cursor: default;
+}
+#calendar-container td:hover {
+  cursor: pointer;
+  background-color: #a0e3ff;
 }
 #calendar-container .another-month {
   color: #d3d3d3;
@@ -63,6 +68,7 @@
 #calendar-container .weekday-names {
   color: #6b6b6b;
   background: #6df17c;
+  border-bottom: 4px solid #000;
 }
 #calendar-container .weekday-names th {
   background: transparent;
