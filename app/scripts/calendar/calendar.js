@@ -304,6 +304,6 @@ define([
 				$this.val(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear());
 			}
 
-			// append control to DOM
+			return $selected;
 		};
 	});
