@@ -6,7 +6,7 @@ define(['calendar/database',
 	'extensions/date',
 	'interface/navigation',
 	'interface/home-page'
-], function(db, day, note, list, cal, ext, home) {
+], function(db, day, note, list, cal, ext, nav, home) {
 	// ########### for testing ###########
 
 	$('#navigation-container').fillnavigation();
