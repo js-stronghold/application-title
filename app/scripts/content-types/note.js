@@ -1,11 +1,10 @@
 define(['content-types/content', 'jquery'], function(Content, $) {
-function Note(title, message, time, color) {
+function Note(title, message, time) {
 	var TYPE = 'note';
 		Content.call(this,
 			title.title || title,
 			TYPE,
-			title.time || time,
-			title.color || color);
+			title.time || time);
 
 		this.message = title.message || message;
 	}

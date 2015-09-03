@@ -1,17 +1,16 @@
 define(['content-types/content', 'jquery'], function(Content, $) {
-function List(titleOrParams, items, time, color) {
+function List(titleOrParams, items, time) {
 	var TYPE = 'list';
 		if (typeof(titleOrParams) === 'object') {
 			Content.call(
 				this, 
 				titleOrParams.title, 
 				TYPE, 
-				titleOrParams.time, 
-				titleOrParams.color);
+				titleOrParams.time);
 
 			this.items = titleOrParams.items;		
 		} else {
-			Content.call(this, titleOrParams, TYPE, time, color);
+			Content.call(this, titleOrParams, TYPE, time);
 			// list should be an array;
 			this.items = items;
 		}
