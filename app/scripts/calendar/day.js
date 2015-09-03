@@ -116,7 +116,7 @@ define(['content-types/note', 'content-types/list', 'jquery', 'extensions/date']
 	function toDomElement() {
 		var title = $('<h2 />')
 			.addClass('date')
-			.html(this.name + ' ' + parseDayNumber(this.number));
+			.html(this.date.toFullNameString());
 
 		var wrapper = $('<div />')
 			.addClass('day')
