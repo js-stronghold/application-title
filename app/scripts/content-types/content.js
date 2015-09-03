@@ -1,9 +1,8 @@
 define(['jquery'], function($) {
-	function Content(title, type, time, color) {
+	function Content(title, type, time) {
 		this.title = title;
 		this.type = type || null;
 		this.time = time || null;
-		this.color = color || null;
 	}
 
 	Object.defineProperties(Content.prototype, {
@@ -22,10 +21,19 @@ define(['jquery'], function($) {
 			.addClass('title')
 			.text(this.title);
 			
-		var description = $('<span />')
+		var titleDescription = $('<span />')
 			.addClass('description')
 			.text('title: ')
 			.prependTo(title);
+
+		var time = $('<h3 />')
+			.addClass('time')
+			.text(this.time);
+
+		var timeDescription = $('<sapn />')	
+			.addClass('description')
+			.text('time: ')
+			.prependTo(time);
 
 		var removeButton = $('<button />')
 			.addClass('remove-button')
@@ -37,6 +45,10 @@ define(['jquery'], function($) {
 			.append(removeButton)
 			.append(type)
 			.append(title);
+
+		if (this.time) {
+			time.appendTo(wrapper);
+		}
 
 		return wrapper;
 	}
