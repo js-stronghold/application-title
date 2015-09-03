@@ -178,7 +178,7 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 			removedDay;
 
 		if (index === -1) {
-			return null;
+			throw new Error('Could not find the day in database');
 		} else {
 			removedDay = daysWithEvents[index];
 			daysWithEvents.splice(index, 1);
