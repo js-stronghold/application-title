@@ -6,8 +6,8 @@ define(['jquery', 'interface/add-content'], function($, addContent) {
 			addButton = $('<button />')
 			.addClass('add-button')
 			.html('Add more content'),
-			closeButton = $('<button />')
-			.addClass('close-button')
+			removeButton = $('<button />')
+			.addClass('remove-button')
 			.html('X');
 
 		wrapper = $('<div />')
@@ -15,10 +15,11 @@ define(['jquery', 'interface/add-content'], function($, addContent) {
 			.addClass('day-view')
 			.append(dayContent)
 			.append(addButton)
-			.append(closeButton);
+			.append(removeButton);
 
 		addButton.on('click', addContent.add);
-		closeButton.on('click', function() {
+
+		removeButton.on('click', function() {
 			wrapper.remove();
 			day.isDisplayed = false;
 		});
@@ -34,7 +35,8 @@ define(['jquery', 'interface/add-content'], function($, addContent) {
 				.css({
 					left: x,
 					top: y
-				});
+				})
+				.data('day', day);	
 
 			$selector.append(wrapper);
 		},
