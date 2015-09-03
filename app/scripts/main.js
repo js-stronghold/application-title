@@ -3,9 +3,13 @@ define(['calendar/database',
 	'content-types/note',
 	'content-types/list',
 	'calendar/calendar',
-	'extensions/date'
+	'extensions/date',
+	'calendar/navigation'
 ], function(db, day, note, list, cal, ext) {
 	// ########### for testing ###########
+
+	$('#navigation-container').fillnavigation();
+
 	DB = db;
 	Day = day;
 	Note = note;
