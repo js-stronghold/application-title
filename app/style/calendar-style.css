@@ -36,6 +36,17 @@
   color: #1af923;
   background: #606f6e;
 }
+#calendar-container .calendar-month .today {
+  position: relative;
+  background: #7A67DD;
+  color: #fff;
+}
+#calendar-container .calendar-month .today:after {
+  position: absolute;
+  bottom: 5px;
+  left: 16px;
+  content: 'today';
+}
 #calendar-container .controls {
   position: relative;
   border: 3px solid #000;

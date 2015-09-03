@@ -6,7 +6,7 @@
   color: #fff;
   padding: 5px;
 }
-#calendar-container .day-view .close-button {
+#calendar-container .day-view .remove-button {
   position: absolute;
   top: 2px;
   right: -2px;
@@ -15,13 +15,20 @@
   border: 0;
   transition: all 0.35s ease;
 }
-#calendar-container .day-view .close-button:hover {
+#calendar-container .day-view .remove-button:hover {
   cursor: pointer;
   color: #FF8600;
 }
+#calendar-container .day-view .add-button:hover {
+  cursor: pointer;
+}
 #calendar-container .day-view .day .date {
-  margin-top: 10px;
+  margin-top: 12px;
+  padding: 5px;
   text-align: center;
+  border: 2px solid #fff;
+  border-radius: 5px 10px;
+  background: #668EA8;
 }
 #calendar-container .day-view .day .content .type {
   text-align: center;

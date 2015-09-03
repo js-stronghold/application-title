@@ -23,7 +23,7 @@
 
 			&:hover {
 				cursor: pointer;
-				background-color: rgb(160, 227, 255);
+				background-color: rgb(160, 227, 255, 0);
 				color: #fff;
 			}
 		}
@@ -39,6 +39,19 @@
 		.highlighted {
 			color: rgb(26, 249, 35);
 			background: rgb(96, 111, 110);
+		}
+
+		.today {
+			position: relative;
+			background: #7A67DD;
+			color: #fff;
+
+			&:after {
+				position: absolute;
+				bottom: 5px;
+				left: 16px;
+				content: 'today';
+			}
 		}
 	}
 
