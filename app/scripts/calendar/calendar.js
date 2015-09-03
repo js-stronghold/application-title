@@ -37,8 +37,8 @@ define([
 				.append(selectedMonth)
 				.append(rightBtn);
 
-			var popup = $('<div />')
-				.addClass('popup');
+			var tooltip = $('<div />')
+				.addClass('tooltip');
 
 			$selected
 				.append(controls)
@@ -197,24 +197,24 @@ define([
 					monthDays = daysFromCurrentMonth,
 					dayObject = monthDays[+$this.text()];
 
-				popup.css({
+				tooltip.css({
 					position: 'fixed',
 					left: evt.pageX,
 					top: evt.pageY,
 				});
 
 				if (dayObject.contents) {
-					popup
+					tooltip
 						.html(dayObject.contents.contents.length + ' items');
 				} else {
-                    popup.html('click to add content');
+                    tooltip.html('click to add content');
                 }
 
-                popup.appendTo($selected);
+                tooltip.appendTo($selected);
 			});
 
 			calendar.on('mouseleave', 'td.current-month', function() {
-				popup.remove();
+				tooltip.remove();
 			});
 
 			calendar.on('click', 'td.current-month', function(evt) {
