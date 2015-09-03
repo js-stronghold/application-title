@@ -81,7 +81,6 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 
 	function updateLocalStorage() {
 		var prepared = [];
-		console.log(prepared);
 
 		_(daysWithEvents).each(function(day) {
 			prepared.push(prepareForLocalStorage(day));

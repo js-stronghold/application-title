@@ -96,8 +96,6 @@ define([
 				time: inputTime.val()
 			};
 
-			console.log('Add');
-
 			switch(selectedType) {
 				case 'Note': 
 					values.message = contentSpecific.find('input').val();
