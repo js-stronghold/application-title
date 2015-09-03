@@ -30,6 +30,9 @@
   border-radius: 5px 10px;
   background: #668EA8;
 }
+#calendar-container .day-view .day .content {
+  position: relative;
+}
 #calendar-container .day-view .day .content .type {
   text-align: center;
   text-decoration: underline;
