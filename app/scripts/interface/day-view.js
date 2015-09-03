@@ -1,4 +1,4 @@
-define(['jquery', 'interface/add-content', 'calendar/database'], function($, addContent, DB) {
+define(['interface/add-content', 'calendar/database', 'jquery', 'jquery-ui/draggable'], function(addContent, DB, $) {
 	function create(day, controlElement) {
 		var wrapper,
 			dayContent = $('<div />')
@@ -15,7 +15,8 @@ define(['jquery', 'interface/add-content', 'calendar/database'], function($, add
 			.addClass('day-view')
 			.append(dayContent)
 			.append(addButton)
-			.append(removeButton);
+			.append(removeButton)
+			.draggable();	
 
 		addButton.on('click', addContent.add);
 
