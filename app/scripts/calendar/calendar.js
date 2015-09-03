@@ -250,7 +250,6 @@ define([
 
 						day = element.data('day');
 						element.data('remove')();
-						console.log(daysFromCurrentMonth);
 						break;
 
 					case 37:
@@ -280,7 +279,7 @@ define([
 						break;
 
 					default:
-						console.log(evt.keyCode);
+                        break;
 				}
 			});
 
