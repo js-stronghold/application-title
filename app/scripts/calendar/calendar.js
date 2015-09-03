@@ -1,15 +1,24 @@
-define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', 'interface/day-view', 'extensions/date', 'jquery-ui/draggable'],
-	function($, _, Handlebars, database, dayView) {
+define([
+		'jquery',
+		'underscore',
+		'handlebars',
+		'calendar/database',
+		'interface/day-view',
+		'interface/add-day',
+		'extensions/date',
+		'jquery-ui/draggable'
+	],
+	function($, _, Handlebars, DB, dayView, addDay) {
 		$.fn.calendar = function() {
 			var $selected = this;
 			var currentDate = new Date();
-			var daysFromDB = [];
+			var daysFromDBforThisMonth = [];
 			var daysFromCurrentMonth = [];
 
 			var sorce = $('#calendar-template').html();
 			var template = Handlebars.compile(sorce);
 
-            var calendar = $('<div />');
+			var calendar = $('<div />');
 
 			var leftBtn = $('<button />')
 				.data('action', '-1')
@@ -26,17 +35,17 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 				.addClass('controls')
 				.append(leftBtn)
 				.append(selectedMonth)
-				.append(rightBtn);			
+				.append(rightBtn);
 
 			var popup = $('<div />')
 				.addClass('popup');
 
-            $selected
-                .append(controls)
-                .append(calendar)
-                .draggable();  
+			$selected
+				.append(controls)
+				.append(calendar)
+				.draggable();
 
-            resetCalendarContent();   
+			resetCalendarContent();
 
 			function buildCalendar(date) {
 				date = date || new Date();
@@ -73,7 +82,7 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 				var startNext = 0;
 				var currentDayRendered = 1;
 
-				daysFromDB = database.getDaysForThisMonth(date);
+				daysFromDBforThisMonth = DB.getDaysForThisMonth(date);
 				daysFromCurrentMonth = ['reserved'];
 
 				(function() {
@@ -159,16 +168,21 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 
 			function resetCalendarContent() {
 				var result = buildCalendar(currentDate),
-                    referenceDate = new Date();
+					referenceDate = new Date();
 				highlightDaysWithContent(currentDate);
 				setInnerMonth(currentDate);
 
-                if (currentDate.getMonth() === referenceDate.getMonth() &&
-                        currentDate.getFullYear() === referenceDate.getFullYear()) {
-                    daysFromCurrentMonth[currentDate.getDate()].class += ' today';
-                }
+				if (currentDate.getMonth() === referenceDate.getMonth() &&
+					currentDate.getFullYear() === referenceDate.getFullYear()) {
+					daysFromCurrentMonth[currentDate.getDate()].class += ' today';
+				}
 
-                calendar.html(template(result));
+				calendar.html(template(result));
+			}
+
+			function removeDayFromContents(day) {
+				DB.removeDay(day);
+				resetCalendarContent();
 			}
 
 			controls.on('click', 'button', function() {
@@ -182,16 +196,21 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 				var $this = $(this),
 					monthDays = daysFromCurrentMonth,
 					dayObject = monthDays[+$this.text()];
+
+				popup.css({
+					position: 'fixed',
+					left: evt.pageX,
+					top: evt.pageY,
+				});
+
 				if (dayObject.contents) {
 					popup
-						.appendTo($selected)
-						.html(dayObject.contents.contents.length + ' items')
-						.css({
-							position: 'fixed',
-							left: evt.pageX,
-							top: evt.pageY,
-						});
-				}
+						.html(dayObject.contents.contents.length + ' items');
+				} else {
+                    popup.html('click to add content');
+                }
+
+                popup.appendTo($selected);
 			});
 
 			calendar.on('mouseleave', 'td.current-month', function() {
@@ -201,14 +220,17 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 			calendar.on('click', 'td.current-month', function(evt) {
 				var $this = $(this),
 					monthDays = daysFromCurrentMonth,
+					referenceDate,
 					dayObject = monthDays[+$this.text()];
 
 				if (dayObject.contents && !dayObject.contents.isDisplayed) {
-					dayView.init(dayObject.contents, $selected, evt.pageX, evt.pageY, $this);
+					dayView.init(dayObject.contents, $selected, evt.pageX, evt.pageY, $this, removeDayFromContents);
 				}
 
 				if (!dayObject.contents) {
-					console.log('Do you want to add content?');
+					referenceDate = new Date(currentDate);
+					referenceDate.setDate(+$this.text());
+					addDay(referenceDate, $selected, evt.pageX, evt.pageY, $this, removeDayFromContents);
 				}
 			});
 
@@ -227,16 +249,15 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 						}
 
 						day = element.data('day');
-
-						element.remove();
-						day.isDisplayed = false;
+						element.data('remove')();
+						console.log(daysFromCurrentMonth);
 						break;
 
 					case 37:
 						// Left Arrow prev month
 						element = $('#calendar-container .controls button:first-child');
 						element.click();
-                        element.focus();
+						element.focus();
 						break;
 
 					case 38:
@@ -249,22 +270,22 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 						// Right Arrow next month
 						element = $('#calendar-container .controls button:last-child');
 						element.click();
-                        element.focus();
+						element.focus();
 						break;
 
 					case 40:
 						//Down Arrow prev year
 						currentDate.setFullYear(currentDate.getFullYear() - 1);
 						resetCalendarContent();
-                        break;
+						break;
 
-                    default: 
-                        console.log(evt.keyCode);  
+					default:
+						console.log(evt.keyCode);
 				}
 			});
 
 			function highlightDaysWithContent() {
-				var days = daysFromDB;
+				var days = daysFromDBforThisMonth;
 				var currentMonthDays = daysFromCurrentMonth;
 				_(days).each(function(day) {
 					var i = day.number;

@@ -1,5 +1,5 @@
-define(['interface/add-content', 'calendar/database', 'jquery', 'jquery-ui/draggable'], function(addContent, DB, $) {
-	function create(day, controlElement) {
+define(['interface/add-content', 'jquery', 'jquery-ui/draggable'], function(addContent, $) {
+	function create(day, controlElement, removeCallback) {
 		var wrapper,
 			dayContent = $('<div />')
 			.html(day.toDomElement()),
@@ -19,20 +19,12 @@ define(['interface/add-content', 'calendar/database', 'jquery', 'jquery-ui/dragg
 			.draggable({
 				zIndex: 100,
 				opacity: 0.85
-			});	
+			})
+			.data('remove', remove);
 
 		addButton.on('click', addContent.add);
 
-		removeButton.on('click', function() {
-			wrapper.remove();
-
-			if (day.contents.length === 0) {
-				DB.removeDay(day);
-				controlElement.removeClass('highlighted');
-			} else {
-				day.isDisplayed = false;
-			}	
-		});
+		removeButton.on('click', remove);
 
 		$(wrapper).find('.content .remove-button').on('click', function() {
 			var $this = $(this),
@@ -42,9 +34,24 @@ define(['interface/add-content', 'calendar/database', 'jquery', 'jquery-ui/dragg
 			$this.parent().remove();
 
 			if (day.contents.length === 0) {
-				removeButton.click();
+				remove();
 			}
 		});
+
+		function remove() {
+			if (!wrapper) {
+				return;
+			}
+
+			wrapper.remove();
+
+			if (day.contents.length === 0) {
+				controlElement.removeClass('highlighted');
+				removeCallback(day);
+			} else {
+				day.isDisplayed = false;
+			}
+		}
 
 		day.isDisplayed = true;
 
@@ -52,8 +59,8 @@ define(['interface/add-content', 'calendar/database', 'jquery', 'jquery-ui/dragg
 	}
 
 	return {
-		init: function(day, $selector, x, y, controlElement) {
-			var wrapper = create(day, controlElement)
+		init: function(day, $selector, x, y, controlElement, removeCallback) {
+			var wrapper = create(day, controlElement, removeCallback)
 				.css({
 					left: x,
 					top: y
