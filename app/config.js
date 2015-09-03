@@ -10,6 +10,7 @@ System.config({
   },
   paths: {
     "jquery": "libs/jquery-2.1.4",
+    "jquery-ui/*": "libs/jquery-ui/*.js",
     "underscore": "libs/underscore.js",
     "handlebars": "libs/handlebars.js",
     "github:*": "jspm_packages/github/*",

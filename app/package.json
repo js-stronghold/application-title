@@ -22,6 +22,7 @@
     "chai": "^3.2.0",
     "handlebars": "^3.0.3",
     "jquery": "^2.1.4",
+    "jquery-ui": "^1.10.5",
     "jsdom": "^6.2.0",
     "mocha": "^2.2.5",
     "node-requirejs": "^0.1.1",
