@@ -240,8 +240,8 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 						break;
 
 					case 38:
-						// Up Arrow prev year
-						currentDate.setFullYear(currentDate.getFullYear() - 1);
+						// Up Arrow next year
+						currentDate.setFullYear(currentDate.getFullYear() + 1);
 						resetCalendarContent();
 						break;
 
@@ -253,8 +253,8 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 						break;
 
 					case 40:
-						//Down Arrow next year
-						currentDate.setFullYear(currentDate.getFullYear() + 1);
+						//Down Arrow prev year
+						currentDate.setFullYear(currentDate.getFullYear() - 1);
 						resetCalendarContent();
                         break;
 
