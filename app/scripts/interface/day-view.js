@@ -25,7 +25,13 @@ define(['interface/add-content', 'calendar/database', 'jquery', 'jquery-ui/dragg
 
 		removeButton.on('click', function() {
 			wrapper.remove();
-			day.isDisplayed = false;
+
+			if (day.contents.length === 0) {
+				DB.removeDay(day);
+				controlElement.removeClass('highlighted');
+			} else {
+				day.isDisplayed = false;
+			}	
 		});
 
 		$(wrapper).find('.content .remove-button').on('click', function() {
@@ -36,9 +42,7 @@ define(['interface/add-content', 'calendar/database', 'jquery', 'jquery-ui/dragg
 			$this.parent().remove();
 
 			if (day.contents.length === 0) {
-				DB.removeDay(day);
-				wrapper.remove();
-				controlElement.removeClass('highlighted');
+				removeButton.click();
 			}
 		});
 
