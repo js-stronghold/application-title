@@ -59,9 +59,7 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 			return JSON.stringify(prepared);
 		} else {
 			return prepared;
-		}
-
-		
+		}	
 	}
 
 	function appendToLocalStorage(day) {
@@ -83,6 +81,7 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 
 	function updateLocalStorage() {
 		var prepared = [];
+		console.log(prepared);
 
 		_(daysWithEvents).each(function(day) {
 			prepared.push(prepareForLocalStorage(day));
@@ -150,7 +149,7 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 		}
 
 		daysWithEvents.push(day);
-		appendToLocalStorage(day);
+		updateLocalStorage();
 	}
 
 	function removeDay(byDateOrReference) {
@@ -217,6 +216,7 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 		getAll: getAll,
 		addDay: addDay,
 		removeDay: removeDay,
+		updateLocalStorage: updateLocalStorage,
 		clear: clear,
 		// exposed for testing
 		reloadFromLS: parseLocalStorageContent,
