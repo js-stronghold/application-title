@@ -15,21 +15,40 @@
 </head>
 <body>
     <header>
-        <h1>
-            Time to take care of your time and space!
-        </h1>
+    <div id="navigation-container">
+
+        </div>
     </header>
 
     <div id="calendar-container">
 
     </div>
+    <script id="navigation-template" type="text/x-handlebars-template">
+        <div id = 'nav'>
+            <div class = 'left'>
+                <span id = 'home'>Home</span>
+                {{#if logged}}
+                <span>{{toMonthView}}</span>
+                {{/if}}
+            </div>
+            <div class = 'right'>
+                {{#if logged}}
+                <span id = 'logout'>Log out</span>
+                {{else}}
+                <span id = 'login'>Log in</span>
+                <span id = 'create-new-account'>Create new account</span>
+                {{/if}}
+            </div>
+        </div>
+    </script>
+
     <script id="calendar-template" type="text/x-handlebars-template">
         <table class="calendar-month">
             <thead>
                 <tr class="weekday-names">
                     {{#each headers}}
                     <th {{#if this.class}}class="{{class}}"{{/if}}>
-                    {{this.name}}
+                        {{this.name}}
                     </th>
                     {{/each}}
                 </tr>
