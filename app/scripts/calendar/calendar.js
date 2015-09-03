@@ -218,7 +218,7 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 				switch (evt.keyCode) {
 
 					case 27:
-						// Esc remove last daily view
+						// Esc close last daily view
 						element = $('.day-view:last-child');
 
 						if (!element.length) {
@@ -235,22 +235,24 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 						// Left Arrow prev month
 						element = $('#calendar-container .controls button:first-child');
 						element.click();
+                        element.focus();
 						break;
 
 					case 38:
-						// Down Arrow -1 year
+						// Up Arrow prev year
 						currentDate.setFullYear(currentDate.getFullYear() - 1);
 						resetCalendarContent();
 						break;
 
 					case 39:
-						// Right Arrow
+						// Right Arrow next month
 						element = $('#calendar-container .controls button:last-child');
 						element.click();
+                        element.focus();
 						break;
 
 					case 40:
-						//Down Arrow
+						//Down Arrow next year
 						currentDate.setFullYear(currentDate.getFullYear() + 1);
 						resetCalendarContent();
                         break;
