@@ -1,4 +1,4 @@
-define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', 'interface/day-view', 'extensions/date'],
+define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', 'interface/day-view', 'extensions/date', 'jquery-ui/draggable'],
 	function($, _, Handlebars, database, dayView) {
 		$.fn.calendar = function() {
 			var $selected = this;
@@ -33,7 +33,8 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 
             $selected
                 .append(controls)
-                .append(calendar);    
+                .append(calendar)
+                .draggable();  
 
             resetCalendarContent();   
 
