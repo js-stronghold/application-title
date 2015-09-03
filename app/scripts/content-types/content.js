@@ -27,8 +27,14 @@ define(['jquery'], function($) {
 			.text('title: ')
 			.prependTo(title);
 
+		var removeButton = $('<button />')
+			.addClass('remove-button')
+			.data('content', this)
+			.text('X');
+
 		var wrapper = $('<div />')
 			.addClass('content')
+			.append(removeButton)
 			.append(type)
 			.append(title);
 
