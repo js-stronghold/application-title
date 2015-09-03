@@ -16,7 +16,10 @@ define(['interface/add-content', 'calendar/database', 'jquery', 'jquery-ui/dragg
 			.append(dayContent)
 			.append(addButton)
 			.append(removeButton)
-			.draggable();	
+			.draggable({
+				zIndex: 100,
+				opacity: 0.85
+			});	
 
 		addButton.on('click', addContent.add);
 
