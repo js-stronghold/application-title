@@ -5,9 +5,9 @@ using System.Text;
 
 namespace ClassDiagramForCalendarApp
 {
-    public class Year
+    public class mainInterface
     {
-        public List<monthView> Months
+        public int userSettings
         {
             get
             {
@@ -19,7 +19,19 @@ namespace ClassDiagramForCalendarApp
             }
         }
 
-        public void HiglightMonthsWithContent()
+        public int darggable
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        public void closeWindow()
         {
             throw new System.NotImplementedException();
         }

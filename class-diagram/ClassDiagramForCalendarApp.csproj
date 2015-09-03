@@ -41,10 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
+    <Compile Include="backEndStorage.cs" />
     <Compile Include="Birthday.cs" />
     <Compile Include="Calendar.cs" />
     <Compile Include="DailyView.cs" />
-    <Compile Include="Date.cs" />
+    <Compile Include="localStorage.cs" />
+    <Compile Include="MainInterface.cs" />
+    <Compile Include="Day.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="InputForm.cs" />

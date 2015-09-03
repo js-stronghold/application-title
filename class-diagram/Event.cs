@@ -7,7 +7,7 @@ namespace ClassDiagramForCalendarApp
 {
     public abstract class Content
     {
-        public int Title
+        public int title
         {
             get
             {
@@ -19,19 +19,7 @@ namespace ClassDiagramForCalendarApp
             }
         }
 
-        public int Time
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
-
-        public int Color
+        public int time
         {
             get
             {

@@ -5,57 +5,20 @@ using System.Text;
 
 namespace ClassDiagramForCalendarApp
 {
-    public class TodayView
+    public class todayView : mainInterface
     {
-        public Date Date
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
 
-            set
-            {
-            }
+        public void displayDayInformation()
+        {
+            throw new System.NotImplementedException();
         }
 
-        public Calendar Calendar
+        public void removeContent()
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
+            throw new System.NotImplementedException();
         }
 
-        public RemoveEvent RemoveEvent
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
-
-        public InputEventForm InputEventForm
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
-
-        public void ViewContent()
+        public void addContent()
         {
             throw new System.NotImplementedException();
         }

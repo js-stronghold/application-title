@@ -5,9 +5,9 @@ using System.Text;
 
 namespace ClassDiagramForCalendarApp
 {
-    public class Week
+    public class weekView
     {
-        public List<Date> Days
+        public database database
         {
             get
             {
@@ -19,7 +19,24 @@ namespace ClassDiagramForCalendarApp
             }
         }
 
-        public void HighlightWeekend()
+        public todayView TodayView
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        public void displayWeek()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void higlightDaysWithContents()
         {
             throw new System.NotImplementedException();
         }

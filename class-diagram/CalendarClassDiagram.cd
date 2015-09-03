@@ -1,119 +1,105 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ClassDiagramForCalendarApp.Date">
-    <Position X="4.25" Y="0.5" Width="3" />
+  <Class Name="ClassDiagramForCalendarApp.mainInterface">
+    <Position X="6.5" Y="6" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgIAAAAABAAABAAAAAAAAEAAAAAAAIAAAAA=</HashCode>
-      <FileName>Date.cs</FileName>
+      <HashCode>AAAAAEAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>MainInterface.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Content" />
-    </ShowAsAssociation>
   </Class>
-  <Class Name="ClassDiagramForCalendarApp.Calendar">
-    <Position X="0.5" Y="0.5" Width="1.75" />
+  <Class Name="ClassDiagramForCalendarApp.database">
+    <Position X="3.25" Y="0.5" Width="2" />
+    <AssociationLine Name="localStorage" Type="ClassDiagramForCalendarApp.localStorage">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.039" Y="0.12" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="backEndStorage" Type="ClassDiagramForCalendarApp.backEndStorage">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.018" Y="0.11" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="allDaysWithEvents" Type="ClassDiagramForCalendarApp.Day">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.079" Y="0.102" Height="0.182" Width="1.326" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AACAgBAAAAAAAAAEAAAAAAAAAAAAAAAAgAAAAEAAAAA=</HashCode>
+      <HashCode>AEAAAAAAAAAAAEIgAACAAAEAAACAAAAAAIAQAAIAAEA=</HashCode>
       <FileName>Calendar.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="localStorage" />
+      <Property Name="backEndStorage" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="allDaysWithEvents" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="ClassDiagramForCalendarApp.Content">
-    <Position X="8" Y="0.5" Width="1.5" />
+    <Position X="6.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAIgAAAAQA=</HashCode>
+      <HashCode>AAABAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
       <FileName>Event.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ClassDiagramForCalendarApp.Week">
-    <Position X="6" Y="3.25" Width="1.75" />
-    <AssociationLine Name="Days" Type="ClassDiagramForCalendarApp.Date" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="6.875" Y="3.25" />
-        <Point X="6.875" Y="2.932" />
-        <Point X="5.75" Y="2.932" />
-        <Point X="5.75" Y="2.632" />
-      </Path>
+  <Class Name="ClassDiagramForCalendarApp.weekView">
+    <Position X="4.25" Y="3.5" Width="2" />
+    <AssociationLine Name="database" Type="ClassDiagramForCalendarApp.database">
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="-1.732" Y="0.318" Height="0.182" Width="0.587" />
+        <Position X="-0.984" Y="0.341" Height="0.182" Width="0.857" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="TodayView" Type="ClassDiagramForCalendarApp.todayView">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-1.078" Y="0.966" Height="0.182" Width="0.92" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAQAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAIAAACAAAAAAAAAAIAAAAA=</HashCode>
       <FileName>Week.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Days" />
-    </ShowAsCollectionAssociation>
-  </Class>
-  <Class Name="ClassDiagramForCalendarApp.Month">
-    <Position X="4.25" Y="3.25" Width="1.5" />
-    <AssociationLine Name="Days" Type="ClassDiagramForCalendarApp.Date" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="4.875" Y="3.25" />
-        <Point X="4.875" Y="2.932" />
-        <Point X="5.75" Y="2.932" />
-        <Point X="5.75" Y="2.632" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="0.891" Y="0.32" Height="0.182" Width="0.618" />
-      </MemberNameLabel>
-    </AssociationLine>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAIAAAAEAAAAAAAAAQAAAAAAAAAA=</HashCode>
-      <FileName>Month.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Days" />
-    </ShowAsCollectionAssociation>
-  </Class>
-  <Class Name="ClassDiagramForCalendarApp.Year">
-    <Position X="4.25" Y="5" Width="2.25" />
-    <AssociationLine Name="Months" Type="ClassDiagramForCalendarApp.Month">
-      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="0.016" Y="0.175" Height="0.182" Width="0.743" />
-      </MemberNameLabel>
-    </AssociationLine>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEAAAAAAAAAAA=</HashCode>
-      <FileName>Year.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Months" />
-    </ShowAsCollectionAssociation>
-  </Class>
-  <Class Name="ClassDiagramForCalendarApp.TodayView">
-    <Position X="0.5" Y="3.25" Width="2.5" />
-    <Compartments>
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
-    <AssociationLine Name="Date" Type="ClassDiagramForCalendarApp.Date" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="3" Y="3.714" />
-        <Point X="3.714" Y="3.714" />
-        <Point X="3.714" Y="1.566" />
-        <Point X="4.25" Y="1.566" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.589" Y="-2.138" />
-      </MemberNameLabel>
-    </AssociationLine>
-    <TypeIdentifier>
-      <HashCode>AAAAQAAAAAAAAgAAAAAAAAAAAAAAAAAFAIAAAAAAAAA=</HashCode>
-      <FileName>DailyView.cs</FileName>
-    </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Date" />
-      <Property Name="Calendar" />
-      <Property Name="RemoveEvent" />
-      <Property Name="InputEventForm" />
+      <Property Name="database" />
+      <Property Name="TodayView" />
     </ShowAsAssociation>
   </Class>
+  <Class Name="ClassDiagramForCalendarApp.monthView">
+    <Position X="2" Y="3.5" Width="2" />
+    <AssociationLine Name="database" Type="ClassDiagramForCalendarApp.database">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.089" Y="0.32" Height="0.182" Width="0.899" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="TodayView" Type="ClassDiagramForCalendarApp.todayView">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.193" Y="0.414" Height="0.182" Width="0.941" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAABAAAAEAAIAACAAAAAAAAAAAIAAQAA=</HashCode>
+      <FileName>Month.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="database" />
+      <Property Name="TodayView" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ClassDiagramForCalendarApp.todayView">
+    <Position X="3" Y="6" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAIAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>DailyView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="ClassDiagramForCalendarApp.Image">
-    <Position X="10" Y="0.5" Width="1.5" />
+    <Position X="9" Y="0.5" Width="1.5" />
     <InheritanceLine Type="ClassDiagramForCalendarApp.Content" FixedFromPoint="true">
       <Path>
-        <Point X="9.5" Y="0.826" />
-        <Point X="10" Y="0.826" />
+        <Point X="8.25" Y="3.794" />
+        <Point X="8.625" Y="3.794" />
+        <Point X="8.625" Y="0.999" />
+        <Point X="9" Y="0.999" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -122,13 +108,13 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ClassDiagramForCalendarApp.Note">
-    <Position X="10" Y="1.75" Width="1.5" />
+    <Position X="9" Y="1.75" Width="1.5" />
     <InheritanceLine Type="ClassDiagramForCalendarApp.Content" FixedFromPoint="true">
       <Path>
-        <Point X="9.5" Y="0.826" />
-        <Point X="9.74" Y="0.826" />
-        <Point X="9.74" Y="2.366" />
-        <Point X="10" Y="2.366" />
+        <Point X="8.25" Y="3.794" />
+        <Point X="8.625" Y="3.794" />
+        <Point X="8.625" Y="2.366" />
+        <Point X="9" Y="2.366" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -137,13 +123,13 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ClassDiagramForCalendarApp.Birthday">
-    <Position X="10" Y="3.25" Width="1.5" />
+    <Position X="9" Y="3.25" Width="1.5" />
     <InheritanceLine Type="ClassDiagramForCalendarApp.Content" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="9.5" Y="0.826" />
-        <Point X="9.74" Y="0.826" />
-        <Point X="9.74" Y="3.438" />
-        <Point X="10" Y="3.438" />
+        <Point X="8.25" Y="3.794" />
+        <Point X="8.625" Y="3.794" />
+        <Point X="8.625" Y="3.438" />
+        <Point X="9" Y="3.438" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -152,13 +138,13 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ClassDiagramForCalendarApp.Address">
-    <Position X="10" Y="4.5" Width="1.5" />
+    <Position X="9" Y="4.5" Width="1.5" />
     <InheritanceLine Type="ClassDiagramForCalendarApp.Content" FixedFromPoint="true">
       <Path>
-        <Point X="9.5" Y="0.826" />
-        <Point X="9.74" Y="0.826" />
-        <Point X="9.74" Y="4.999" />
-        <Point X="10" Y="4.999" />
+        <Point X="8.25" Y="3.794" />
+        <Point X="8.625" Y="3.794" />
+        <Point X="8.625" Y="4.999" />
+        <Point X="9" Y="4.999" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -167,13 +153,13 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ClassDiagramForCalendarApp.List">
-    <Position X="10" Y="5.75" Width="1.5" />
+    <Position X="9" Y="5.75" Width="1.5" />
     <InheritanceLine Type="ClassDiagramForCalendarApp.Content" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="9.5" Y="0.813" />
-        <Point X="9.74" Y="0.813" />
-        <Point X="9.74" Y="6.059" />
-        <Point X="10" Y="6.059" />
+        <Point X="8.25" Y="3.782" />
+        <Point X="8.625" Y="3.782" />
+        <Point X="8.625" Y="6.059" />
+        <Point X="9" Y="6.059" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -181,18 +167,33 @@
       <FileName>List.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ClassDiagramForCalendarApp.InputEventForm">
-    <Position X="0.5" Y="4.75" Width="1.5" />
+  <Class Name="ClassDiagramForCalendarApp.Day">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <AssociationLine Name="contents" Type="ClassDiagramForCalendarApp.Content">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.12" Y="0.154" Height="0.182" Width="0.753" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAQBAAAAAAAAQAAAIEAAAAAAAIAQAAAAA=</HashCode>
+      <FileName>Day.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="contents" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ClassDiagramForCalendarApp.localStorage">
+    <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>InputForm.cs</FileName>
+      <FileName>localStorage.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ClassDiagramForCalendarApp.RemoveEvent">
-    <Position X="2.25" Y="4.75" Width="1.25" />
+  <Class Name="ClassDiagramForCalendarApp.backEndStorage">
+    <Position X="0.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>RemoveButton.cs</FileName>
+      <FileName>backEndStorage.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

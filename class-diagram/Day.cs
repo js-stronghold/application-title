@@ -5,9 +5,9 @@ using System.Text;
 
 namespace ClassDiagramForCalendarApp
 {
-    public class Date
+    public class Day
     {
-        public Content Content
+        public List<Content> contents
         {
             get
             {
@@ -19,7 +19,7 @@ namespace ClassDiagramForCalendarApp
             }
         }
 
-        public int NextDay
+        public int number
         {
             get
             {
@@ -31,7 +31,7 @@ namespace ClassDiagramForCalendarApp
             }
         }
 
-        public int PrevDay
+        public int name
         {
             get
             {
@@ -43,17 +43,41 @@ namespace ClassDiagramForCalendarApp
             }
         }
 
-        public void Highlight()
+        public int isDisplayed
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        public int date
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        public void addContent()
         {
             throw new System.NotImplementedException();
         }
 
-        public void AddContent()
+        public void removeContent()
         {
             throw new System.NotImplementedException();
         }
 
-        public void RemoveContent()
+        public void toDomElement()
         {
             throw new System.NotImplementedException();
         }
