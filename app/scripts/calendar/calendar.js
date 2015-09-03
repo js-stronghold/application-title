@@ -203,7 +203,7 @@ define('calendar', ['jquery', 'underscore', 'handlebars', 'calendar/database', '
 					dayObject = monthDays[+$this.text()];
 
 				if (dayObject.contents && !dayObject.contents.isDisplayed) {
-					dayView.init(dayObject.contents, $selected, evt.pageX, evt.pageY);
+					dayView.init(dayObject.contents, $selected, evt.pageX, evt.pageY, $this);
 				}
 
 				if (!dayObject.contents) {

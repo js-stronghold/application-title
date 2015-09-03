@@ -1,5 +1,5 @@
-define(['jquery', 'interface/add-content'], function($, addContent) {
-	function create(day) {
+define(['jquery', 'interface/add-content', 'calendar/database'], function($, addContent, DB) {
+	function create(day, controlElement) {
 		var wrapper,
 			dayContent = $('<div />')
 			.html(day.toDomElement()),
@@ -24,14 +24,28 @@ define(['jquery', 'interface/add-content'], function($, addContent) {
 			day.isDisplayed = false;
 		});
 
+		$(wrapper).find('.content .remove-button').on('click', function() {
+			var $this = $(this),
+				content = $this.data('content');
+
+			day.removeContent(content);
+			$this.parent().remove();
+
+			if (day.contents.length === 0) {
+				DB.removeDay(day);
+				wrapper.remove();
+				controlElement.removeClass('highlighted');
+			}
+		});
+
 		day.isDisplayed = true;
 
 		return wrapper;
 	}
 
 	return {
-		init: function(day, $selector, x, y) {
-			var wrapper = create(day)
+		init: function(day, $selector, x, y, controlElement) {
+			var wrapper = create(day, controlElement)
 				.css({
 					left: x,
 					top: y
