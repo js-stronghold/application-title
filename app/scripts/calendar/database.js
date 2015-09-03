@@ -41,8 +41,8 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 		});
 	}
 
-	function prepareForLocalStorage(day) {
-		var objectForStringify = {
+	function prepareForLocalStorage(day, stringify) {
+		var prepared = {
 			date: [
 				day.date.getFullYear(),
 				day.date.getMonth(),
@@ -52,10 +52,16 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 		};
 
 		_(day.contents).each(function(content) {
-			objectForStringify.contents.push(content);
+			prepared.contents.push(content);
 		});
 
-		return JSON.stringify(objectForStringify);
+		if (stringify) {
+			return JSON.stringify(prepared);
+		} else {
+			return prepared;
+		}
+
+		
 	}
 
 	function appendToLocalStorage(day) {
@@ -70,9 +76,19 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 			preString = '';
 		}
 
-		prepared = currentLocalStorageContent.replace(regExLastArrayBracket, preString + prepareForLocalStorage(day) + ']');
+		prepared = currentLocalStorageContent.replace(regExLastArrayBracket, preString + prepareForLocalStorage(day, true) + ']');
 
 		localStorage.setItem('daysWithEvents', prepared);
+	}
+
+	function updateLocalStorage() {
+		var prepared = [];
+
+		_(daysWithEvents).each(function(day) {
+			prepared.push(prepareForLocalStorage(day));
+		});
+
+		localStorage.setItem('daysWithEvents', JSON.stringify(prepared));
 	}
 
 	function getDaysForThisMonth(monthDate) {
@@ -162,6 +178,7 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 		} else {
 			removedDay = daysWithEvents[index];
 			daysWithEvents.splice(index, 1);
+			updateLocalStorage();
 
 			return removedDay;
 		}
@@ -182,6 +199,7 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 		} else {
 			removedDay = daysWithEvents[index];
 			daysWithEvents.splice(index, 1);
+			updateLocalStorage();
 
 			return removedDay;
 		}
