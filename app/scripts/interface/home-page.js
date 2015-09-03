@@ -28,15 +28,19 @@ define('home-page', ['jquery', 'underscore', 'calendar/calendar'],
 						'width': '200px',
 						'margin': '0 auto',
 						'text-align': 'center'
-					})
-					.click(function() {
-						$.remove(quoteHeader);
-						$('#calendar-container').css({
-							'width': '500px'
-						});
 					});
 
-				miniCalendar.calendar();
+
+				miniCalendar
+					.calendar()
+					.click(function() {
+						miniCalendar.remove();
+						quoteHeader.hide();
+						mainContainer.append('<div />')
+							.attr('id', 'calendar-container');
+							
+						$('#calendar-container').calendar();
+					});
 
 				var mainContainer = $(selector)
 					.css({
