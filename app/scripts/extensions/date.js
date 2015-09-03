@@ -47,18 +47,26 @@ define(function() {
 						dayName: this.getDayName().substr(0, 3),
 						dayNumber: this.getDate() > 10 ? this.getDate() : '0' + this.getDate(),
 						month: this.getMonthName().substr(0, 3),
-						year: this.getFullYear(),
+						year: this.getFullYear()
 					},
-					strFormat = '#{dayName} #{month} #{dayNumber} #{year}',
-					formatted;
+					formatted = formatDateString(replacements, separator);
 
-				formatted = strFormat.replace(/#{(\S+)}/g, function(match, prop) {
-					return replacements[prop] || match;
-				});
+				return formatted;
+			},
+			enumerable: true,
+			configurable: true
+		},
 
-				if (separator) {
-					formatted = formatted.replace(/[\s]/g, separator);
-				}
+		toFullNameString: {
+			value: function(separator) {
+				var replacements = {
+					dayName: this.getDayName(),
+					dayNumber: this.getDate() > 10 ? this.getDate() : '0' + this.getDate(),
+					month: this.getMonthName(),
+					year: this.getFullYear()
+				},
+				pattern = '#{dayName} #{dayNumber} #{month} #{year}';
+				formatted = formatDateString(replacements, separator, pattern);
 
 				return formatted;
 			},
@@ -66,5 +74,18 @@ define(function() {
 			configurable: true
 		}
 	});
+
+	function formatDateString(replacements, separator, pattern) {
+		pattern = pattern || '#{dayName} #{month} #{dayNumber} #{year}';
+		var formatted = pattern.replace(/#{(\S+)}/g, function(match, prop) {
+			return replacements[prop] || match;
+		});
+
+		if (separator) {
+			formatted = formatted.replace(/[\s]/g, separator);
+		}
+
+		return formatted;
+	}
 	// ***************************************************************** 
 });
