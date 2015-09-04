@@ -14,6 +14,22 @@ function List(titleOrParams, items, time) {
 			// list should be an array;
 			this.items = items;
 		}
+		
+		Object.defineProperties(this, {
+			items: {
+				get: function() {
+					return this._items;
+				},
+				
+				set: function(val) {
+					if(Array.isArray(val)) {
+						this._items = val;
+					} else {
+						throw new Error('The list received invalid value for items, must be an array');
+					}
+				}
+			}
+		});
 	}
 
 	List.prototype = Object.create(Content.prototype, {
@@ -42,6 +58,10 @@ function List(titleOrParams, items, time) {
 
 	function parseContent(list, content) {
 		content.forEach(function(item) {
+			if(!item) {
+				throw new Error('Invalid value in List\'s items content');
+			}
+			
 			var li = $('<li />')
 				.html(item);
 
