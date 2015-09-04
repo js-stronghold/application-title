@@ -208,6 +208,16 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 		daysWithEvents = [];
 	}
 
+	function searchContentsByTitle(title) {
+		var found = _(daysWithEvents).filter(function(day){
+			return _(day.contents).some(function(content) {
+				return content.title.toLowerCase().indexOf(title.toLowerCase()) !== -1;
+			});	
+		});
+
+		return found;
+	}
+
 	return {
 		getDaysForThisMonth: getDaysForThisMonth,
 		getDaysForPrevMonth: getDaysForPrevMonth,
@@ -217,6 +227,7 @@ define(['calendar/day', 'content-types/note', 'content-types/list', 'underscore'
 		removeDay: removeDay,
 		updateLocalStorage: updateLocalStorage,
 		clear: clear,
+		searchContentsByTitle: searchContentsByTitle,
 		// exposed for testing
 		reloadFromLS: parseLocalStorageContent,
 		clearWithoutLS: clearWithoutLS
