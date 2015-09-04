@@ -35,8 +35,9 @@ function Content(title, type, time) {
 			set: function(val) {
 				if (val !== null) {
 					if(val.length <= 5) {
-						throw new Error('Invalid time format: supported are 16:00 or 16 00 or 16h.');
-						this._time = val;
+						if(/\d:\d|\d\s\d/.test(val)) {
+							this._time = val;
+						}
 					}	
 				} else {
 					this._time = null;
