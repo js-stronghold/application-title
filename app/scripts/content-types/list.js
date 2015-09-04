@@ -1,21 +1,8 @@
 define(['content-types/content', 'jquery'], function(Content, $) {
 function List(titleOrParams, items, time) {
 	var TYPE = 'list';
-		if (typeof(titleOrParams) === 'object') {
-			Content.call(
-				this, 
-				titleOrParams.title, 
-				TYPE, 
-				titleOrParams.time);
-
-			this.items = titleOrParams.items;		
-		} else {
-			Content.call(this, titleOrParams, TYPE, time);
-			// list should be an array;
-			this.items = items;
-		}
-		
-		Object.defineProperties(this, {
+	
+	Object.defineProperties(this, {
 			items: {
 				get: function() {
 					return this._items;
@@ -31,6 +18,20 @@ function List(titleOrParams, items, time) {
 				enumerable: true
 			}
 		});
+	
+		if (typeof(titleOrParams) === 'object') {
+			Content.call(
+				this, 
+				titleOrParams.title, 
+				TYPE, 
+				titleOrParams.time);
+
+			this.items = titleOrParams.items;		
+		} else {
+			Content.call(this, titleOrParams, TYPE, time);
+			// list should be an array;
+			this.items = items;
+		}
 	}
 
 	List.prototype = Object.create(Content.prototype, {
