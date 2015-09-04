@@ -6,7 +6,23 @@ function Note(title, message, time) {
 			TYPE,
 			title.time || time);
 
-		this.message = title.message || message;
+	this.message = title.message || message;
+		
+	Object.defineProperties(this, {
+		message: {
+			get: function() {
+				return this._message;
+			},
+			set: function(val) {
+				if(!val || typeof(val) !== 'string') {
+					throw new Error('Note received invalid message not a string or empty');
+				}
+				
+				this._message = val;
+			},
+			enumerable: true
+		}
+	});	
 	}
 
 	Note.prototype = Object.create(Content.prototype, {
