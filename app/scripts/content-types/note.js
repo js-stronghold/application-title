@@ -5,9 +5,7 @@ function Note(title, message, time) {
 			title.title || title,
 			TYPE,
 			title.time || time);
-
-	this.message = title.message || message;
-		
+			
 	Object.defineProperties(this, {
 		message: {
 			get: function() {
@@ -22,7 +20,9 @@ function Note(title, message, time) {
 			},
 			enumerable: true
 		}
-	});	
+	});		
+
+	this.message = title.message || message;	
 	}
 
 	Note.prototype = Object.create(Content.prototype, {
