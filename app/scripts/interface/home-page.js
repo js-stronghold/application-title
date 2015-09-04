@@ -29,11 +29,11 @@ define('home-page', ['jquery', 'underscore', 'interface/search', 'calendar/calen
 					.calendar();
 
 				var mainContainer = $(selector)
-					.append(quoteHeader)
-					.append(calendar);
+					.append(calendar)
+					.append(quoteHeader);
 
 				quoteHeader.hide({
-					duration: 10000
+					duration: 20000
 				});
 
 				searchFunction();	
