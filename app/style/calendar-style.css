@@ -33,7 +33,7 @@
 #calendar-container .calendar-month .another-month {
   color: #d3d3d3;
 }
-#calendar-container .calendar-month .highlighted {
+#calendar-container .calendar-month td.highlighted {
   color: #1af923;
   background: url('../images/list-icon.png') no-repeat;
   background-size: 22px;
@@ -61,7 +61,7 @@
 }
 #calendar-container .controls button {
   position: absolute;
-  top: 3px;
+  top: 6px;
   cursor: pointer;
   color: transparent;
   width: 9%;
