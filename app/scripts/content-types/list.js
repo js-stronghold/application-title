@@ -27,7 +27,8 @@ function List(titleOrParams, items, time) {
 					} else {
 						throw new Error('The list received invalid value for items, must be an array');
 					}
-				}
+				},
+				enumerable: true
 			}
 		});
 	}
