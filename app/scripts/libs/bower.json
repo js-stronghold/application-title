@@ -1,0 +1,19 @@
+{
+  "name": "libs",
+  "version": "0.0.0",
+  "homepage": "https://github.com/js-stronghold/hold-strong-your-time",
+  "authors": [
+    "StanimiraHK <stanimira.kormeva.4@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "everlive": "~1.5.5"
+  }
+}
