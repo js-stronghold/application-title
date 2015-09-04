@@ -32,6 +32,10 @@ define('home-page', ['jquery', 'underscore', 'interface/search', 'calendar/calen
 					.append(quoteHeader)
 					.append(calendar);
 
+				quoteHeader.hide({
+					duration: 10000
+				});
+
 				searchFunction();	
 			}
 		};
