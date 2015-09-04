@@ -22,7 +22,7 @@ define(['interface/add-content', 'jquery', 'jquery-ui/draggable'], function(addC
 			})
 			.data('remove', remove);
 
-		addContent(wrapper, dayContent, addButton, day);
+		addContent(dayContent, addButton, day);
 
 		removeButton.on('click', remove);
 
