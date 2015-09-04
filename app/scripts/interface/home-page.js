@@ -1,5 +1,5 @@
-define('home-page', ['jquery', 'underscore', 'calendar/calendar'],
-	function($, _) {
+define('home-page', ['jquery', 'underscore', 'interface/search', 'calendar/calendar'],
+	function($, _, searchFunction) {
 		return {
 			openHomePage: function(selector) {
 				var quotes = [
@@ -31,6 +31,8 @@ define('home-page', ['jquery', 'underscore', 'calendar/calendar'],
 				var mainContainer = $(selector)
 					.append(quoteHeader)
 					.append(calendar);
+
+				searchFunction();	
 			}
 		};
 	});
