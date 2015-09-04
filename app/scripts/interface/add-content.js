@@ -5,7 +5,7 @@ define([
 	'jquery',
 	'jquery-ui/jquery-ui'
 ], function(note, list, DB, $) {
-	function createForm($parent, dayContent, actionButton, day) {
+	function createForm(dayContent, actionButton, day) {
 		var dialogWrapper = $('<div />'),
 			form = $('<form />'),
 			fieldset = $('<fieldset />'),
@@ -80,9 +80,9 @@ define([
 					}
 				},
 				close: function() {
-					dialogWrapper.dialog('destroy');
+					$('.add-content-dialog').remove();
+
 					actionButton.off('click');
-					$parent.remove(dialogWrapper);
 				}
 			});
 
