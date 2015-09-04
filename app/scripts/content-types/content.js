@@ -1,16 +1,12 @@
 define(['jquery'], function($) {
-	function Content(title, type, time) {
-	this.title = title;
-	this.type = type || null;
-	this.time = time || null;
-		
-	Object.defineProperties(this, {
+function Content(title, type, time) {
+        Object.defineProperties(this, {
 		type: {
 			get: function() {
 				return this._type;
 			},	
 			set: function(val) {
-				if(typeOf(val) !== 'string' || val !== null ){
+				if(typeof(val) !== 'string' && val !== null ){
 					throw new Error('Contenet type is invalid');
 				}
 				this._type = val;
@@ -49,6 +45,11 @@ define(['jquery'], function($) {
 			enumerable: true
 		}
 	});
+
+        
+	this.title = title;
+	this.type = type || null;
+	this.time = time || null;	
 }
 
 	Object.defineProperties(Content.prototype, {
