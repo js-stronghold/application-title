@@ -6,6 +6,7 @@
 		border-collapse: collapse;
 		border: 3px solid #000;
 		width: 100%;
+		height: 100%;
 
 		td, th {
 			border: 1px solid #333;
@@ -38,7 +39,10 @@
 
 		.highlighted {
 			color: rgb(26, 249, 35);
-			background: rgb(96, 111, 110);
+			background: url('../images/list-icon.png') no-repeat;
+			background-size: 22px;
+			background-position: 98% 10%;
+			background-color: rgb(96, 111, 110);
 		}
 
 		.today {
@@ -48,8 +52,8 @@
 
 			&:after {
 				position: absolute;
-				bottom: 5px;
-				left: 16px;
+				bottom: 3px;
+				left: 12px;
 				content: 'today';
 			}
 		}
@@ -77,7 +81,7 @@
 			background-repeat: no-repeat;
 			background-size: 110%;
 			box-shadow: 1px 1px 4px #131312;
-			transition: background-color 0.5s ease;	
+			transition: all 0.5s ease;	
 		
 
 			&:active {

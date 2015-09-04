@@ -22,33 +22,15 @@ define('home-page', ['jquery', 'underscore', 'calendar/calendar'],
 						'text-align': 'center'
 					});
 
-				var miniCalendar = $('<div />')
-					.attr('id', 'calendar-container')
-					.css({
-						'width': '200px',
-						'margin': '0 auto',
-						'text-align': 'center'
-					});
-
-
-				miniCalendar
-					.calendar()
-					.click(function() {
-						miniCalendar.remove();
-						quoteHeader.hide();
-						mainContainer.append('<div />')
-							.attr('id', 'calendar-container');
-							
-						$('#calendar-container').calendar();
-					});
+				var calendar = $('<div />')
+					.attr({
+						id: 'calendar-container'
+					})
+					.calendar();
 
 				var mainContainer = $(selector)
-					.css({
-						'background': '#ED1C24'
-					})
 					.append(quoteHeader)
-					.append(miniCalendar);
+					.append(calendar);
 			}
 		};
-
 	});

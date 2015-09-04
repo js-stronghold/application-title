@@ -51,7 +51,7 @@ define('navigation', ['jquery', 'underscore', 'handlebars', 'calendar/database',
 				.addClass('log item')
 				.click(logInForm());
 
-				var creatNew  = $('#create-new-account')
+				var creatNew = $('#create-new-account')
 				.addClass('item')
 				.click(createNewAccount());
 			}
@@ -60,22 +60,22 @@ define('navigation', ['jquery', 'underscore', 'handlebars', 'calendar/database',
 			.css({
 				'margin': '3px',
 				'cursor': 'pointer'
-			})
+			});
 
 			function logOut() {
 				//TODO
-			};
+			}
 
 			function monthView(){
 				//TODO
-			};
+			}
 
 			function logInForm(){
 				//TODO
-			};
+			}
 
 			function createNewAccount(){
 				//TODO
-			};
-		}
+			}
+		};
 	});

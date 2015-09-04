@@ -149,7 +149,8 @@ define([
 					field
 						.attr({
 							type: 'text',
-							name: 'content-items'
+							name: 'content-items',
+							title: 'Press enter to add item'
 						})
 						.addClass('items')
 						.addClass('text ui-widget-content ui-corner-all')
@@ -158,6 +159,13 @@ define([
 							if (evt.keyCode === 13) {
 								evt.preventDefault();
 								button.click();
+							}
+						})
+						.tooltip({
+							show: 'slideDown',
+							hide: 'slideUp',
+							position: {
+								my: 'left top+15', at: 'left bottom-15'
 							}
 						})
 						.appendTo(container);
@@ -170,7 +178,11 @@ define([
 							field.val('');
 						})
 						.css({
-							
+							position: 'absolute',
+							right: '17px',
+							bottom: '8px',
+							width: '65px',
+							'font-size': '12px',
 						})
 						.appendTo(container);
 					break;

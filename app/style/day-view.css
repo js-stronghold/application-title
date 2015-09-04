@@ -19,8 +19,10 @@
   cursor: pointer;
   color: #FF8600;
 }
-#calendar-container .day-view .add-button:hover {
-  cursor: pointer;
+#calendar-container .day-view .add-button {
+  margin-top: 20px;
+  width: 100%;
+  font-size: 16px;
 }
 #calendar-container .day-view .day .date {
   margin-top: 12px;

@@ -207,10 +207,10 @@ define([
 					tooltip
 						.html(dayObject.contents.contents.length + ' items');
 				} else {
-                    tooltip.html('click to add content');
-                }
+					tooltip.html('click to add content');
+				}
 
-                tooltip.appendTo($selected);
+				tooltip.appendTo($selected);
 			});
 
 			calendar.on('mouseleave', 'td.current-month', function() {
@@ -231,12 +231,17 @@ define([
 					referenceDate = new Date(currentDate);
 					referenceDate.setDate(+$this.text());
 					addDay(referenceDate, $selected, evt.pageX, evt.pageY, $this, removeDayFromContents);
+                    resetCalendarContent();
 				}
 			});
 
 			$('body').on('keydown', function(evt) {
 				var element,
 					day;
+
+                    if ($('.add-content-dialog').css('display') !== 'none') {
+                        return;
+                    }
 
 				switch (evt.keyCode) {
 
@@ -279,7 +284,7 @@ define([
 						break;
 
 					default:
-                        break;
+						break;
 				}
 			});
 
