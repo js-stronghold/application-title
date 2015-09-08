@@ -11,6 +11,20 @@ define(['content-types/note', 'content-types/list', 'jquery', 'extensions/date']
 				enumerable: true
 			},
 
+			month: {
+				get: function() {
+					return this.date.getMonthName();
+				},
+				enumerable: true
+			},
+
+			year: {
+				get: function() {
+					return this.date.getFullYear();
+				},
+				enumerable: true
+			},
+
 			name: {
 				get: function() {
 					return this.date.getDayName();
