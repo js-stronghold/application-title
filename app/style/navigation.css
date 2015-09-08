@@ -1,0 +1,18 @@
+#navigation-container {
+  overflow: auto;
+  zoom: 1;
+  background-color: #73AFB6;
+  color: #0004B3;
+  padding: 5px;
+}
+#navigation-container span {
+  font-size: 16px;
+}
+#navigation-container .left {
+  float: left;
+  padding: 3px;
+}
+#navigation-container .right {
+  float: right;
+  padding: 3px;
+}
