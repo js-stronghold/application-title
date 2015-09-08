@@ -26,11 +26,11 @@ System.config({
 	},
 
 	paths: {
-    "sammy": "../node_modules/sammy/lib/sammy.js",
-    "jquery": "../node_modules/jquery/dist/jquery",
-    "jquery-ui/*": "../node_modules/jquery-ui/*.js",
-		"underscore": "../node_modules/underscore/underscore.js",
-		"handlebars": "../node_modules/handlebars/dist/handlebars.js",
+    "sammy": "libs/sammy.js",
+    "jquery": "libs/jquery-2.1.4.js",
+    "jquery-ui/*": "libs/jquery-ui/*.js",
+		"underscore": "libs/underscore.js",
+		"handlebars": "libs/handlebars.js",
 		"github:*": "../jspm_packages/github/*",
 		"npm:*": "../jspm_packages/npm/*"
 	}
