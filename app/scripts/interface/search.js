@@ -1,4 +1,4 @@
-define(['calendar/database', 'interface/day-view', 'jquery', 'underscore'], function(DB, dayView, $, _) {
+define(['service-communication/database-link', 'interface/day-view', 'jquery', 'underscore'], function(DB, dayView, $, _) {
 	var foundObjects = [];
 
 	function start() {
