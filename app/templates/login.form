@@ -1,0 +1,10 @@
+<form method="post" accept-charset="utf-8">
+	<fieldset>
+		<legend>Login</legend>
+		<label for="username">Username: </label>
+		<input type="text" name="username" id="username" value="" placeholder="username" class="text ui-widget-content ui-corner-all" />
+		<label for="password">Password: </label>
+		<input type="password" name="password" id="password" value="" placeholder="password" class="text ui-widget-content ui-corner-all" />
+		<input type="submit" name="submit" id="submit" value="OK" class="btn btn-primary" />
+	</fieldset>	
+</form>
