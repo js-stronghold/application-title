@@ -1,15 +1,15 @@
 define(['content-types/content', 'jquery'], function(Content, $) {
-function List(titleOrParams, items, time) {
-	var TYPE = 'list';
-	
-	Object.defineProperties(this, {
+	function List(titleOrParams, items, time) {
+		var TYPE = 'list';
+
+		Object.defineProperties(this, {
 			items: {
 				get: function() {
 					return this._items;
 				},
-				
+
 				set: function(val) {
-					if(Array.isArray(val)) {
+					if (Array.isArray(val)) {
 						this._items = val;
 					} else {
 						throw new Error('The list received invalid value for items, must be an array');
@@ -18,15 +18,15 @@ function List(titleOrParams, items, time) {
 				enumerable: true
 			}
 		});
-	
+
 		if (typeof(titleOrParams) === 'object') {
 			Content.call(
-				this, 
-				titleOrParams.title, 
-				TYPE, 
+				this,
+				titleOrParams.title,
+				TYPE,
 				titleOrParams.time);
 
-			this.items = titleOrParams.items;		
+			this.items = titleOrParams.items;
 		} else {
 			Content.call(this, titleOrParams, TYPE, time);
 			// list should be an array;
@@ -60,10 +60,10 @@ function List(titleOrParams, items, time) {
 
 	function parseContent(list, content) {
 		content.forEach(function(item) {
-			if(!item) {
+			if (!item) {
 				throw new Error('Invalid value in List\'s items content');
 			}
-			
+
 			var li = $('<li />')
 				.html(item);
 
