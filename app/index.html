@@ -5,43 +5,45 @@
     <title>Good App</title>
     <link rel="stylesheet" href="style/style-reset.css">
     <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/navigation.css">
     <link rel="stylesheet" href="style/calendar-style.css">
     <link rel="stylesheet" href="style/day-view.css">
-    <link rel="stylesheet" href="scripts/libs/jquery-ui/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="node_modules/jquery-ui/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
     <script src="jspm_packages/system.js" type="text/javascript" charset="utf-8"></script>
     <script src="config.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
-        System.import('main');
+            System.import('interface/navigation');
     </script>
 </head>
 <body>
 
-    <div id="navigation-container">
+    <div id="navigation-container"></div>
 
-    </div>
+    <div id = 'main-container'></div>
 
-    <div id = 'main-container'>
-
-    </div>
+    <div id="notfications-container"></div>
 
     <footer>
         
     </footer>
     <script id="navigation-template" type="text/x-handlebars-template">
         <div id = 'nav'>
-            <div class = 'left'>
-                <span id = 'home'>Home</span>
-                <input type="text" name="search" id="search" class="text ui-widget-content ui-corner-all" value="" placeholder="search content" />
+            <div class="left">
+                <a href="#/home" id="home" class="btn btn-default" role="button">Home</a>
+                <input type="text" name="search" id="search" class="text ui-widget-content ui-corner-all" placeholder="search content" />
                 {{#if logged}}
                 <span>{{toMonthView}}</span>
                 {{/if}}
             </div>
-            <div class = 'right'>
-                {{#if logged}}
-                <span id = 'logout'>Log out</span>
+            <div class="right">
+                {{#if this.isLoggedIn}}
+                <span class="text-primary">You are {{this.username}} </span>
+                <a href="#/logout" id ="logout" class="btn btn-default" >Log out</a>
                 {{else}}
-                <span id = 'login'>Log in</span>
-                <span id = 'create-new-account'>Create new account</span>
+                <a href="#/login" id = "login" class="btn btn-default" role="button">Log in</a>
+                <a href="#/register" class="btn btn-default" role="button">Create new account</a>
+                <a href="#/guest" class="btn btn-default" role="button">Guest Mode</a>
                 {{/if}}
             </div>
         </div>
