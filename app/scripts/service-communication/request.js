@@ -1,6 +1,6 @@
 define(['jquery', 'underscore'], function($, _) {
 	var apiKey = '6xPucpp6M25LHsGZ',
-		baseWebURL = 'http://api.everlive.com/v1/' + apiKey + '/';
+		baseWebURL = 'https://api.everlive.com/v1/' + apiKey + '/';
 
 	function get(address, options) {
 		var promise = new Promise(function(resolve, reject) {
