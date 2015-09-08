@@ -1,10 +1,10 @@
 define([
 	'content-types/note',
 	'content-types/list',
-	'calendar/database',
+	'service-communication/database-link',
 	'jquery',
 	'jquery-ui/jquery-ui'
-], function(note, list, DB, $) {
+], function(Note, List, DB, $) {
 	function createForm(dayContent, actionButton, day) {
 		var dialogWrapper = $('<div />'),
 			form = $('<form />'),
@@ -18,8 +18,8 @@ define([
 			items = [],
 			selectedType,
 			contentTypes = {
-				Note: note,
-				List: list
+				Note: Note,
+				List: List
 			};
 
 		inputTitle.attr({
@@ -90,6 +90,9 @@ define([
 			.on("submit", function(evt) {
 				evt.preventDefault();
 				addContent();
+			})
+			.on('keydown', 'input,select', function(evt) {
+				evt.stopPropagation();
 			});
 
 		actionButton.button().on("click", function() {
@@ -116,7 +119,7 @@ define([
 					throw new Error('Type not set or unknown');
 			}
 
-			DB.updateLocalStorage();
+			DB.uploadToCloud(day);
 			dayContent.html(day.toDomElement());
 			dialogWrapper.dialog("close");
 		}
