@@ -1,57 +1,57 @@
 define(['jquery'], function($) {
-function Content(title, type, time) {
-        Object.defineProperties(this, {
-		type: {
-			get: function() {
-				return this._type;
-			},	
-			set: function(val) {
-				if(typeof(val) !== 'string' && val !== null ){
-					throw new Error('Contenet type is invalid');
-				}
-				this._type = val;
+	function Content(title, type, time) {
+		Object.defineProperties(this, {
+			type: {
+				get: function() {
+					return this._type;
+				},
+				set: function(val) {
+					if (typeof(val) !== 'string' && val !== null) {
+						throw new Error('Contenet type is invalid');
+					}
+					this._type = val;
+				},
+				enumerable: true
 			},
-			enumerable: true
-		},
-		
-		title: {
-			get: function() {
-				return this._title;
-			},	
-			set: function(val) {
-				if(!val) {
-					throw new Error('Title cannot be empty or undefined');
-				}
-				
-				this._title = val;
-			},
-			enumerable:true
-		},
-		
-		time: {
-			get: function() {
-				return this._time;
-			},	
-			set: function(val) {
-				if (val !== null) {
-					if(val.length <= 5) {
-						if(/\d:\d|\d\s\d/.test(val)) {
-							this._time = val;
-						}
-					}	
-				} else {
-					this._time = null;
-				}
-			},
-			enumerable: true
-		}
-	});
 
-        
-	this.title = title;
-	this.type = type || null;
-	this.time = time || null;	
-}
+			title: {
+				get: function() {
+					return this._title;
+				},
+				set: function(val) {
+					if (!val) {
+						throw new Error('Title cannot be empty or undefined');
+					}
+
+					this._title = val;
+				},
+				enumerable: true
+			},
+
+			time: {
+				get: function() {
+					return this._time;
+				},
+				set: function(val) {
+					if (val !== null) {
+						if (val.length <= 5) {
+							if (/\d:\d|\d\s\d/.test(val)) {
+								this._time = val;
+							}
+						}
+					} else {
+						this._time = null;
+					}
+				},
+				enumerable: true
+			}
+		});
+
+
+		this.title = title;
+		this.type = type || null;
+		this.time = time || null;
+	}
 
 	Object.defineProperties(Content.prototype, {
 		toDomElement: {
@@ -68,7 +68,7 @@ function Content(title, type, time) {
 		var title = $('<h3 />')
 			.addClass('title')
 			.text(this.title);
-			
+
 		var titleDescription = $('<span />')
 			.addClass('description')
 			.text('title: ')
@@ -78,7 +78,7 @@ function Content(title, type, time) {
 			.addClass('time')
 			.text(this.time);
 
-		var timeDescription = $('<sapn />')	
+		var timeDescription = $('<sapn />')
 			.addClass('description')
 			.text('time: ')
 			.prependTo(time);
