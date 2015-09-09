@@ -17,6 +17,7 @@ define([
 				// Enter key
 				if (evt.keyCode === 13) {
 					if ($searchField.val().length > 3) {
+						console.log('%cSearching...', 'color: blue; font-weight: bold');
 						evt.preventDefault();
 						container = $('#calendar-container');
 
@@ -28,8 +29,14 @@ define([
 								filter: filterContent
 							})
 							.then(function(res) {
-								console.log(res);
-								displayResult(res, container);
+								if (res.length > 0) {
+									console.log('%cFound Something', 'color: green; font-weight: bold');
+									console.log(res);
+									displayResult(res, container);
+								} else {
+									console.log('%cNo souch thing in there...', 'color: gray; font-style: italic');
+								}
+								console.log('%c...Search ended.', 'color:blue; font-weight: bold');
 							})
 							.catch(function(err) {
 								console.log('search error');
@@ -87,8 +94,6 @@ define([
 		var leftPos = 500,
 			topPos = 50,
 			days = DB.parseStorageContent(data);
-			console.log(days);
-
 		
 		_(days).each(function(day) {
 			// day, $selector, x, y, controlElement, removeCallback
