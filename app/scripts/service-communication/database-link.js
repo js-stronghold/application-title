@@ -12,34 +12,34 @@ define([
 		var daysWithEvents = [];
 
 		function parseStorageContent(storage) {
-			var daysToInit = storage; //JSON.parse(localStorage.getItem('daysWithEvents'));
-			_(daysToInit).each(function(item) {
+			var parsed = [];
+
+			_(storage).each(function(item) {
 				var dayDate = new Date(item.date);
-				var day;
+				var day = new Day(dayDate);
 
-				if (indexOfDayFromDate(dayDate) === -1) {
-					day = new Day(dayDate);
+				_(item.contents).each(function(content) {
+					var convertedToContent;
 
-					_(item.contents).each(function(content) {
-						var convertedToContent;
+					switch (content.type) {
+						case 'note':
+							convertedToContent = new Note(content);
+							break;
+						case 'list':
+							convertedToContent = new List(content);
+							break;
+						default:
+							throw new Error('parseToLocalStorage received unknown content type ' + content.type);
+					}
 
-						switch (content.type) {
-							case 'note':
-								convertedToContent = new Note(content);
-								break;
-							case 'list':
-								convertedToContent = new List(content);
-								break;
-							default:
-								throw new Error('parseToLocalStorage received unknown content type ' + content.type);
-						}
+					day.addContent(convertedToContent);
+				});
 
-						day.addContent(convertedToContent);
-					});
+				parsed.push(day);
 
-					daysWithEvents.push(day);
-				}
 			});
+
+			return parsed;
 		}
 
 		function downloadFromCloud() {
@@ -47,7 +47,7 @@ define([
 				authorisation: 'Bearer ' + localStorage.getItem('access_token')
 			}).then(function(res) {
 				clearCurrentContents();
-				parseStorageContent(res);
+				daysWithEvents = parseStorageContent(res);
 				console.log('content loaded');
 			}).catch(console.log);
 		}
@@ -68,7 +68,7 @@ define([
 					authorisation: 'Bearer ' + localStorage.getItem('access_token'),
 					filter: {
 						date: day.date
-					}	
+					}
 				};
 
 				request.GET('Days', requestOptions)
@@ -204,23 +204,25 @@ define([
 
 			if (byDateOrReference instanceof Date) {
 				deleted = removeDayByDate(byDateOrReference);
-			} else if (byDateOrReference.date instanceof Date) {
+			} else if (byDateOrReference instanceof Day) {
 				deleted = removeDayByReference(byDateOrReference);
 			} else {
 				throw new Error('removeDay received invalid arguments');
 			}
 
 			request.DELETE('Days', {
-				authorisation: 'Bearer ' + localStorage.getItem('access_token'),
-				filter: {date: deleted.date},
-				contentType: 'application/json'
-			})
-			.then(function(res) {
-				console.log('%cDay deleted from DB', 'color: orange; font-style: italic');
-			})
-			.catch(function(err) {
-				console.log(err);
-			});
+					authorisation: 'Bearer ' + localStorage.getItem('access_token'),
+					filter: {
+						date: deleted.date
+					},
+					contentType: 'application/json'
+				})
+				.then(function(res) {
+					console.log('%cDay deleted from DB', 'color: orange; font-style: italic');
+				})
+				.catch(function(err) {
+					console.log(err);
+				});
 		}
 
 		function clearCurrentContents() {
@@ -283,8 +285,9 @@ define([
 			searchContentsByTitle: searchContentsByTitle,
 			downloadFromCloud: downloadFromCloud,
 			uploadToCloud: uploadToCloud,
+			parseStorageContent: parseStorageContent,
 			// exposed for testing
-			reloadFromLS: parseStorageContent,
+
 			prepareForStorage: prepareForStorage
 		};
 	});
