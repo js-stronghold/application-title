@@ -7,10 +7,11 @@ define([
 		'sammy',
 		'service-communication/login-out-register',
 		'./notifications',
+		'./search',
 		'calendar/calendar',
 		'extensions/date'
 	],
-	function($, _, Handlebars, request, currentUser, Sammy, logIn, notify, calendar) {
+	function($, _, Handlebars, request, currentUser, Sammy, logIn, notify, search, calendar) {
 
 		var mainContainer = $('#main-container'),
 			navigationContainer = $('#navigation-container');
@@ -77,6 +78,7 @@ define([
 					this.redirect('#/home');
 				}
 				calendar.appendTo(mainContainer);
+				search(navigationContainer.find('#search'));
 			});
 		});
 
